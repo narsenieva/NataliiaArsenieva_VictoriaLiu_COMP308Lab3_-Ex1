@@ -73,12 +73,14 @@ function View (props) {
   //
   return (
     <div className="App">
+      <p>{screen}</p>
+      <p>{data}</p>
       <button onClick={verifyCookie}>Verify Cookie</button>     
       <button onClick={deleteCookie}>Log out</button>
       {article !== 'c' 
         ? <div>
-            <p>{screen}</p>
-            <p>{data}</p>
+            {/* <p>{screen}</p>
+            <p>{data}</p> */}
             
             <button onClick={createArticle}>Create Article</button>    
           </div>            
@@ -89,8 +91,8 @@ function View (props) {
       {article == 'l'
         ? <ListArticles screen={screen} setScreen={setScreen} /> :
         <div>
-            <p>{screen}</p>
-            <p>{data}</p>
+            {/* <p>{screen}</p>
+            <p>{data}</p> */}
             <button onClick={listArticles}>List Articles</button>
           </div>            
       }

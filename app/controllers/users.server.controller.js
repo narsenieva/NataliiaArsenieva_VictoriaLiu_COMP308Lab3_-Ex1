@@ -37,20 +37,46 @@ const getErrorMessage = function(err) {
 // Create a new user
 exports.create = function (req, res, next) {
     // Create a new instance of the 'User' Mongoose model
-    var user = new User(req.body); //get data from React form
-    console.log("body: " + req.body.username);
+    // var user = new User(req.body); //get data from React form
+    // console.log("body: " + req.body.username);
 
-    // Use the 'User' instance's 'save' method to save a new user document
-    user.save(function (err) {
-        if (err) {
-            // Call the next middleware with an error message
-            return next(err);
-        } else {
-            // Use the 'response' object to send a JSON response
-            res.json(user);
+    // // Use the 'User' instance's 'save' method to save a new user document
+    // user.save(function (err) {
+    //     if (err) {
+    //         // Call the next middleware with an error message
+    //         return next(err);
+    //     } else {
+    //         // Use the 'response' object to send a JSON response
+    //         res.json(user);
             
+    //     }
+    // });
+
+	const user = new User();
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.email = req.body.email;
+    user.username = req.body.username;
+    user.password = req.body.password;
+   
+    console.log(req.body)
+    //
+    //
+
+    user.save((err) => {
+        if (err) {
+            console.log('error', getErrorMessage(err))
+
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        } else {
+            res.status(200).json(user);
         }
     });
+
+
+
 };
 //
 // Returns all users

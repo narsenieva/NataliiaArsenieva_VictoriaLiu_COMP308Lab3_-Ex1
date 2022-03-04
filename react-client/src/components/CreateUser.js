@@ -15,14 +15,22 @@ function CreateUser(props) {
   const saveUser = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { firstName: user.firstName, lastName: user.lastName, 
-      email: user.email,username: user.username, password: user.password };
-    axios.post(apiUrl, data)
+    const data = { firstName: user.firstName, lastName: user.lastName, email: user.email,username: user.username, password: user.password };
+    if (user.password.length > 6) 
+    {
+      axios.post(apiUrl, data)
       .then((result) => {
         setShowLoading(false);
+        console.log('results from user:',result.data)
         props.history.push('/show/' + result.data._id)
       }).catch((error) => setShowLoading(false));
+
+    }
+    else{
+      window.alert('Password must be greater than 6 characters')
+    }
   };
+
 
   const onChange = (e) => {
     e.persist();

@@ -50,9 +50,59 @@ exports.create = function (req, res) {
     });
 };
 //
+// exports.list = function (req, res, next, id) {
+//     User.findOne({username: req.body.username}, (err, user) => {
+
+//         if (err) { return getErrorMessage(err); }
+//         //
+//         req.id = user._id;
+//         console.log('user._id',req.id);
+	
+//     }).then( function () 
+//     {
+        
+//         Article.findById(id).populate('creator', 'firstName lastName fullName').exec((err, article) => {
+//             if (err) return next(err);
+//             if (!article) return next(new Error('Failed to load article '+ id));
+//                 req.article = article;
+//                 console.log('in articleById:', req.article)
+//                 next();
+//             });
+//     });
+
+// };
+
+// exports.list = function (req, res) {
+//     Article.find().sort('-created').populate('creator', 'firstName lastName fullName').exec((err, articles) => {
+//         if (err) {
+//             return res.status(400).send({
+//                 message: getErrorMessage(err)
+//             });
+//         } else {
+//             //res.status(200).json(articles);
+//             if (req.article.creator.id == req.id) {
+//                 res.status(200).json(articles);
+//                 console.log(articles.creator.id)
+//             }
+//         }
+//     });
+// };
+
+
+// exports.list = function (req, res, next, id) {
+//     console.log("username")
+//     Article.findById(id).populate('creator', 'firstName lastName fullName').exec((err, article) => {if (err) return next(err);
+//         console.log("herererereererere")
+//         if (!article) return next(new Error('Failed to load article ' + id));
+//         req.article = article;
+//         console.log('in articleById:', req.article)
+//         next();
+//     });
+// };
+
 exports.list = function (req, res) {
     Article.find().sort('-created').populate('creator', 'firstName lastName fullName').exec((err, articles) => {
-if (err) {
+    if (err) {
         return res.status(400).send({
             message: getErrorMessage(err)
         });
@@ -61,6 +111,7 @@ if (err) {
     }
 });
 };
+
 //
 exports.articleByID = function (req, res, next, id) {
     Article.findById(id).populate('creator', 'firstName lastName fullName').exec((err, article) => {if (err) return next(err);

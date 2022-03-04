@@ -19,7 +19,6 @@ function ListArticles(props) {
           //if(result.data.screen !== 'auth')
           //{
             
-            console.log('data in if:', result.data )
             setData(result.data);
             setShowLoading(false);
           //}
