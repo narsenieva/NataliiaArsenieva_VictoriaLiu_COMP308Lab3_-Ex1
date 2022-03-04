@@ -7,55 +7,55 @@ import { withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
 
 //
-function CreateArticle(props) {
+function CreateCourse(props) {
     //
     const username = props.screen;
     console.log('props.screen',props.screen)
-    const [article, setArticle] = useState({ _id: '', title: '', content: '', username: '' });
+    const [course, setCourse] = useState({ _id: '', title: '', content: '', username: '' });
     const [showLoading, setShowLoading] = useState(false);
     //
-    const apiUrl = "http://localhost:3000/api/articles"
+    const apiUrl = "http://localhost:3000/api/courses"
     //
-    const saveArticle = (e) => {
+    const saveCourse = (e) => {
         setShowLoading(true);
         e.preventDefault();
-        const data = {title: article.title, content: article.content, username: username };
+        const data = {title: course.title, content: course.content, username: username };
         //
         axios.post(apiUrl, data)
         .then((result) => {
             setShowLoading(false);
-            console.log('results from save article:',result.data)
-            props.history.push('/showarticle/' + result.data._id)
+            console.log('results from save course:',result.data)
+            props.history.push('/showcourse/' + result.data._id)
 
         }).catch((error) => setShowLoading(false));
     };
     //
     const onChange = (e) => {
         e.persist();
-        setArticle({...article, [e.target.name]: e.target.value});
+        setCourse({...course, [e.target.name]: e.target.value});
       }
     
     return (
         <div>
-        <h2> Create an article {username} </h2>
+        <h2> Create an course {username} </h2>
         {showLoading && 
             <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
             </Spinner> 
         } 
         <Jumbotron>
-            <Form onSubmit={saveArticle}>
+            <Form onSubmit={saveCourse}>
               <Form.Group>
                 <Form.Label> Title</Form.Label>
-                <Form.Control type="text" name="title" id="title" placeholder="Enter title" value={article.title} onChange={onChange} />
+                <Form.Control type="text" name="title" id="title" placeholder="Enter title" value={course.title} onChange={onChange} />
               </Form.Group>
               <Form.Group>
                 <Form.Label> Content</Form.Label>
-                <Form.Control as="textarea" rows="3" name="content" id="content" placeholder="Enter Content" value={article.content} onChange={onChange} />
+                <Form.Control as="textarea" rows="3" name="content" id="content" placeholder="Enter Content" value={course.content} onChange={onChange} />
               </Form.Group>
                             
               <Button variant="primary" type="submit">
-                Save Article
+                Save Course
               </Button>
             </Form>
           </Jumbotron>
@@ -65,4 +65,4 @@ function CreateArticle(props) {
 
 }
 
-export default withRouter(CreateArticle);
+export default withRouter(CreateCourse);

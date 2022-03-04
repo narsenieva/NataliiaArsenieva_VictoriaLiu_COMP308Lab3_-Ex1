@@ -1,5 +1,5 @@
-import CreateArticle from './CreateArticle';
-import ListArticles from './ListArticles';
+import CreateCourse from './CreateCourse';
+import ListCourses from './ListCourses';
 import React, { useState } from 'react';
 //
 import axios from 'axios';
@@ -10,7 +10,7 @@ function View (props) {
   // return a stateful value and funcion to update it
   const [data, setData] = useState();
   //
-  const [article, setArticle] = useState('');
+  const [course, setCourse] = useState('');
   // called when user clicks on Logout button
   // to clear the cookie and set the screen state variable 
   // back to its initial state.
@@ -35,19 +35,19 @@ function View (props) {
     }
   }
   //
-  // const listArticles = (data) => {
-  //   console.log('in lisArticles: ',data)
-  //   //setArticle('n')
+  // const listCourses = (data) => {
+  //   console.log('in lisCourses: ',data)
+  //   //setCourse('n')
 
   // }
 
-  const listArticles = async() => {
-    console.log('in list Articles: ')
-    setArticle('l')
+  const listCourses = async() => {
+    console.log('in list Courses: ')
+    setCourse('l')
     
   }
 
-  // const listArticles = async () => {
+  // const listCourses = async () => {
   //   try {
   //     const res = await axios.get('/');
   //     console.log(res.data)
@@ -58,16 +58,16 @@ function View (props) {
   // }
   
 
-  // const listArticles = (username) => {
+  // const listCourses = (username) => {
   //   props.history.push({
-  //     pathname: '/listarticle/' + username
+  //     pathname: '/listcourse/' + username
   //   });
   // };
 
   //
-  const createArticle = () => {
-    console.log('in createArticle')
-    setArticle('c')
+  const createCourse = () => {
+    console.log('in createCourse')
+    setCourse('c')
 
   }
   //
@@ -77,50 +77,50 @@ function View (props) {
       <p>{data}</p>
       <button onClick={verifyCookie}>Verify Cookie</button>     
       <button onClick={deleteCookie}>Log out</button>
-      {article !== 'c' 
+      {course !== 'c' 
         ? <div>
             {/* <p>{screen}</p>
             <p>{data}</p> */}
             
-            <button onClick={createArticle}>Create Article</button>    
+            <button onClick={createCourse}>Create Course</button>    
           </div>            
         : 
-          <CreateArticle screen={screen} setScreen={setScreen} />
+          <CreateCourse screen={screen} setScreen={setScreen} />
       }
 
-      {article == 'l'
-        ? <ListArticles screen={screen} setScreen={setScreen} /> :
+      {course == 'l'
+        ? <ListCourses screen={screen} setScreen={setScreen} /> :
         <div>
             {/* <p>{screen}</p>
             <p>{data}</p> */}
-            <button onClick={listArticles}>List Articles</button>
+            <button onClick={listCourses}>List Courses</button>
           </div>            
       }
 
-      {/* {article !== 'y'
+      {/* {course !== 'y'
         ? <div>
             <p>{screen}</p>
             <p>{data}</p>
             <button onClick={verifyCookie}>Verify Cookie</button>
-            <button onClick={createArticle}>Create Article</button>
-            <button onClick={listArticles}>List Articles</button>
+            <button onClick={createCourse}>Create Course</button>
+            <button onClick={listCourses}>List Courses</button>
 
             <button onClick={deleteCookie}>Log out</button>
           </div>            
-        : <CreateArticle screen={screen} setScreen={setScreen} />
+        : <CreateCourse screen={screen} setScreen={setScreen} />
         
       } */}
-      {/* {article !== 'a'
+      {/* {course !== 'a'
         ? <div>
             <p>{screen}</p>
             <p>{data}</p>
             <button onClick={verifyCookie}>Verify Cookie</button>
-            <button onClick={createArticle}>Create Article</button>
-            <button onClick={listArticles}>List Articles</button>
+            <button onClick={createCourse}>Create Course</button>
+            <button onClick={listCourses}>List Courses</button>
 
             <button onClick={deleteCookie}>Log out</button>
           </div>            
-        : <ListArticles screen={screen} setScreen={setScreen} />
+        : <ListCourses screen={screen} setScreen={setScreen} />
         
       } */}
       

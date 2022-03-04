@@ -32,4 +32,3 @@ module.exports = function (app) {
 	app.get('/welcome',students.welcome);
     
 };
-

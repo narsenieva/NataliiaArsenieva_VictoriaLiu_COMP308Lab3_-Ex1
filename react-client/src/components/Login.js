@@ -19,6 +19,7 @@ function App() {
   const auth = async () => {
     console.log('calling auth')
     console.log(username)
+    console.log(password)
     try {
       //make a get request to /authenticate end-point on the server
       const loginData = { auth: { username, password } }
