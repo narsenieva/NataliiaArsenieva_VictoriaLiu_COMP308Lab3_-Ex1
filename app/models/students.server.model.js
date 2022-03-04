@@ -6,7 +6,7 @@ const saltRounds = 10;
 const Schema = mongoose.Schema;
 //
 // Define a new 'UserSchema'
-var UserSchema = new Schema({
+var StudentSchema = new Schema({
     firstName: String,
 	lastName: String,
 	email: {
@@ -35,7 +35,7 @@ var UserSchema = new Schema({
 });
 
 // Set the 'fullname' virtual property
-UserSchema.virtual('fullName').get(function() {
+StudentSchema.virtual('fullName').get(function() {
 	return this.firstName + ' ' + this.lastName;
 }).set(function(fullName) {
 	const splitName = fullName.split(' ');
@@ -45,14 +45,14 @@ UserSchema.virtual('fullName').get(function() {
 
 // Use a pre-save middleware to hash the password
 // before saving it into database
-UserSchema.pre('save', function(next){
+StudentSchema.pre('save', function(next){
 	//hash the password before saving it
 	this.password = bcrypt.hashSync(this.password, saltRounds);
 	next();
 });
 
 // Create an instance method for authenticating user
-UserSchema.methods.authenticate = function(password) {
+StudentSchema.methods.authenticate = function(password) {
 	//compare the hashed password of the database 
 	//with the hashed version of the password the user enters
 	return this.password === bcrypt.hashSync(password, saltRounds);
@@ -60,10 +60,10 @@ UserSchema.methods.authenticate = function(password) {
 
 
 // Configure the 'UserSchema' to use getters and virtuals when transforming to JSON
-UserSchema.set('toJSON', {
+StudentSchema.set('toJSON', {
 	getters: true,
 	virtuals: true
 });
 
 // Create the 'User' model out of the 'UserSchema'
-mongoose.model('User', UserSchema);
+mongoose.model('Student', StudentSchema);

@@ -1,5 +1,5 @@
 ﻿// Load the module dependencies
-const User = require('mongoose').model('User');
+const Student = require('mongoose').model('Student');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
@@ -52,18 +52,18 @@ exports.create = function (req, res, next) {
     //     }
     // });
 
-	const user = new User();
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    user.email = req.body.email;
-    user.username = req.body.username;
-    user.password = req.body.password;
+	const student = new Student();
+    student.firstName = req.body.firstName;
+    student.lastName = req.body.lastName;
+    student.email = req.body.email;
+    student.username = req.body.username;
+    student.password = req.body.password;
    
     console.log(req.body)
     //
     //
 
-    user.save((err) => {
+    student.save((err) => {
         if (err) {
             console.log('error', getErrorMessage(err))
 
@@ -71,7 +71,7 @@ exports.create = function (req, res, next) {
                 message: getErrorMessage(err)
             });
         } else {
-            res.status(200).json(user);
+            res.status(200).json(student);
         }
     });
 
@@ -79,62 +79,62 @@ exports.create = function (req, res, next) {
 
 };
 //
-// Returns all users
+// Returns all students
 exports.list = function (req, res, next) {
-    // Use the 'User' instance's 'find' method to retrieve a new user document
-    User.find({}, function (err, users) {
+    // Use the 'Student' instance's 'find' method to retrieve a new student document
+    Student.find({}, function (err, students) {
         if (err) {
             return next(err);
         } else {
-            res.json(users);
+            res.json(students);
         }
     });
 };
 //
-//'read' controller method to display a user
+//'read' controller method to display a student
 exports.read = function(req, res) {
 	// Use the 'response' object to send a JSON response
-	res.json(req.user);
+	res.json(req.student);
 };
 //
-// 'userByID' controller method to find a user by its id
-exports.userByID = function (req, res, next, id) {
-	// Use the 'User' static 'findOne' method to retrieve a specific user
-	User.findOne({
+// 'studentByID' controller method to find a student by its id
+exports.studentByID = function (req, res, next, id) {
+	// Use the 'User' static 'findOne' method to retrieve a specific student
+	Student.findOne({
         _id: id
-	}, (err, user) => {
+	}, (err, student) => {
 		if (err) {
 			// Call the next middleware with an error message
 			return next(err);
 		} else {
 			// Set the 'req.user' property
-            req.user = user;
-            console.log(user);
+            req.student = student;
+            console.log(student);
 			// Call the next middleware
 			next();
 		}
 	});
 };
-//update a user by id
+//update a student by id
 exports.update = function(req, res, next) {
     console.log(req.body);
-    User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
+    Student.findByIdAndUpdate(req.student.id, req.body, function (err, student) {
       if (err) {
         console.log(err);
         return next(err);
       }
-      res.json(user);
+      res.json(student);
     });
 };
-// delete a user by id
+// delete a student by id
 exports.delete = function(req, res, next) {
-    User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
+    Student.findByIdAndRemove(req.student.id, req.body, function (err, student) {
       if (err) return next(err);
-      res.json(user);
+      res.json(student);
     });
 };
 //
-// authenticates a user
+// authenticates a student
 exports.authenticate = function(req, res, next) {
 	// Get credentials from request
 	console.log(req.body)
@@ -223,30 +223,30 @@ exports.authenticate = function(req, res, next) {
 
 	// });
 	//find the user with given username using static method findOne
-	User.findOne({username: username}, (err, user) => {
+	Student.findOne({username: username}, (err, student) => {
 			if (err) {
 				return next(err);
 			} else {
-			console.log(user)
+			console.log(student)
 			//compare passwords	
 			console.log("TESTINGGGGGGG")
 			console.log(password)
-			console.log(user.password)
-			if(password === user.password) {
+			console.log(student.password)
+			if(password === student.password) {
 				// Create a new token with the user id in the payload
   				// and which expires 300 seconds after issue
-				const token = jwt.sign({ id: user._id, username: user.username }, jwtKey, 
+				const token = jwt.sign({ id: student._id, username: student.username }, jwtKey, 
 					{algorithm: 'HS256', expiresIn: jwtExpirySeconds });
 				console.log('token:', token)
 				// set the cookie as the token string, with a similar max age as the token
 				// here, the max age is in milliseconds
 				res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-				res.status(200).send({ screen: user.username });
+				res.status(200).send({ screen: student.username });
 				//
 				//res.json({status:"success", message: "user found!!!", data:{user:
 				//user, token:token}});
 				
-				req.user=user;
+				req.student=student;
 				//call the next middleware
 				next()
 			} else {

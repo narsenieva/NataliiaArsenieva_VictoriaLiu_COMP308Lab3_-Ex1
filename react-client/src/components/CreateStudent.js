@@ -6,22 +6,22 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 
-function CreateUser(props) {
-  const [user, setUser] = useState({ _id: '', firstName: '', lastName: '', 
+function CreateStudent(props) {
+  const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
                 email: '',username: '',password: '' });
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/";
 
-  const saveUser = (e) => {
+  const saveStudent = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { firstName: user.firstName, lastName: user.lastName, email: user.email,username: user.username, password: user.password };
-    if (user.password.length > 6) 
+    const data = { firstName: student.firstName, lastName: student.lastName, email: student.email,username: student.username, password: student.password };
+    if (student.password.length > 6) 
     {
       axios.post(apiUrl, data)
       .then((result) => {
         setShowLoading(false);
-        console.log('results from user:',result.data)
+        console.log('results from student:',result.data)
         props.history.push('/show/' + result.data._id)
       }).catch((error) => setShowLoading(false));
 
@@ -34,7 +34,7 @@ function CreateUser(props) {
 
   const onChange = (e) => {
     e.persist();
-    setUser({...user, [e.target.name]: e.target.value});
+    setStudent({...student, [e.target.name]: e.target.value});
   }
 
   return (
@@ -45,26 +45,26 @@ function CreateUser(props) {
         </Spinner> 
       } 
       <Jumbotron>
-        <Form onSubmit={saveUser}>
+        <Form onSubmit={saveStudent}>
           <Form.Group>
             <Form.Label> First Name</Form.Label>
-            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" value={user.firstName} onChange={onChange} />
+            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" value={student.firstName} onChange={onChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label> Last Name</Form.Label>
-            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name" value={user.lastName} onChange={onChange} />
+            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name" value={student.lastName} onChange={onChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Email</Form.Label>
-            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email" value={user.email} onChange={onChange} />
+            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email" value={student.email} onChange={onChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label>User Name</Form.Label>
-            <Form.Control type="text" name="username" id="username" placeholder="Enter user name" value={user.username} onChange={onChange} />
+            <Form.Control type="text" name="username" id="username" placeholder="Enter username" value={student.username} onChange={onChange} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="text" name="password" id="password" placeholder="Enter password" value={user.password} onChange={onChange} />
+            <Form.Control type="text" name="password" id="password" placeholder="Enter password" value={student.password} onChange={onChange} />
           </Form.Group>
           
           <Button variant="primary" type="submit">
@@ -76,4 +76,4 @@ function CreateUser(props) {
   );
 }
 
-export default withRouter(CreateUser);
+export default withRouter(CreateStudent);

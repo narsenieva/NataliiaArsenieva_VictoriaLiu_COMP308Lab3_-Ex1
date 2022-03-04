@@ -1,6 +1,6 @@
 ﻿const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
-const User = require('mongoose').model('User');
+const Student = require('mongoose').model('Student');
 
 //
 function getErrorMessage(err) {
@@ -22,18 +22,18 @@ exports.create = function (req, res) {
     console.log(req.body)
     //
     //
-    User.findOne({username: req.body.username}, (err, user) => {
+    Student.findOne({username: req.body.username}, (err, student) => {
 
         if (err) { return getErrorMessage(err); }
         //
-        req.id = user._id;
-        console.log('user._id',req.id);
+        req.id = student._id;
+        console.log('student._id',req.id);
 
 	
     }).then( function () 
     {
         article.creator = req.id
-        console.log('req.user._id',req.id);
+        console.log('req.student._id',req.id);
 
         article.save((err) => {
             if (err) {
@@ -51,12 +51,12 @@ exports.create = function (req, res) {
 };
 //
 // exports.list = function (req, res, next, id) {
-//     User.findOne({username: req.body.username}, (err, user) => {
+//     Student.findOne({username: req.body.username}, (err, student) => {
 
 //         if (err) { return getErrorMessage(err); }
 //         //
-//         req.id = user._id;
-//         console.log('user._id',req.id);
+//         req.id = student._id;
+//         console.log('student._id',req.id);
 	
 //     }).then( function () 
 //     {
@@ -155,17 +155,17 @@ exports.delete = function (req, res) {
         }
     });
 };
-//The hasAuthorization() middleware uses the req.article and req.user objects
-//to verify that the current user is the creator of the current article
+//The hasAuthorization() middleware uses the req.article and req.student objects
+//to verify that the current student is the creator of the current article
 exports.hasAuthorization = function (req, res, next) {
     console.log('in hasAuthorization - creator: ',req.article.creator)
-    console.log('in hasAuthorization - user: ',req.id)
-    //console.log('in hasAuthorization - user: ',req.user._id)
+    console.log('in hasAuthorization - student: ',req.id)
+    //console.log('in hasAuthorization - student: ',req.student._id)
 
 
     if (req.article.creator.id !== req.id) {
         return res.status(403).send({
-            message: 'User is not authorized'
+            message: 'Student is not authorized'
         });
     }
     next();

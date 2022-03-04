@@ -13,8 +13,8 @@ module.exports = function () {
 		console.log('Error');
 		});
 
-    // Load the 'User' model 
-    require('../app/models/user.server.model');
+    // Load the 'Student' model 
+    require('../app/models/students.server.model');
     // Load the 'Article' model 
     require('../app/models/article.server.model');
     // Return the Mongoose connection instance

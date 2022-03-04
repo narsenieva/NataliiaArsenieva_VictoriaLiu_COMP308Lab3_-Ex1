@@ -17,7 +17,7 @@ const ArticleSchema = new Schema({
     },
     creator: {
         type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'Student'
     }
 });
 mongoose.model('Article', ArticleSchema);

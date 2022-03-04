@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 function ShowUser(props) {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = "http://localhost:3000/users/" + props.match.params.id;
+  const apiUrl = "http://localhost:3000/students/" + props.match.params.id;
 
   useEffect(() => {
     setShowLoading(false);
@@ -29,10 +29,10 @@ function ShowUser(props) {
 
   const deleteUser = (id) => {
     setShowLoading(true);
-    const user = { firstName: data.firstName, lastName: data.lastName, 
+    const student = { firstName: data.firstName, lastName: data.lastName, 
       email: data.email,username: data.username, password: data.password };
   
-    axios.delete(apiUrl, user)
+    axios.delete(apiUrl, student)
       .then((result) => {
         setShowLoading(false);
         props.history.push('/list')
