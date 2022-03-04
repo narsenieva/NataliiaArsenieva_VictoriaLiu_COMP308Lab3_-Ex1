@@ -9,9 +9,9 @@ import React, { useState } from 'react';
 //
 function CreateCourse(props) {
     //
-    const username = props.screen;
+    const studentNumber = props.screen;
     console.log('props.screen',props.screen)
-    const [course, setCourse] = useState({ _id: '', title: '', content: '', username: '' });
+    const [course, setCourse] = useState({ _id: '', title: '', content: '', studentNumber: '' });
     const [showLoading, setShowLoading] = useState(false);
     //
     const apiUrl = "http://localhost:3000/api/courses"
@@ -19,7 +19,7 @@ function CreateCourse(props) {
     const saveCourse = (e) => {
         setShowLoading(true);
         e.preventDefault();
-        const data = {title: course.title, content: course.content, username: username };
+        const data = {title: course.title, content: course.content, studentNumber: studentNumber };
         //
         axios.post(apiUrl, data)
         .then((result) => {
@@ -37,7 +37,7 @@ function CreateCourse(props) {
     
     return (
         <div>
-        <h2> Create an course {username} </h2>
+        <h2> Create an course {studentNumber} </h2>
         {showLoading && 
             <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>

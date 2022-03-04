@@ -58,9 +58,9 @@ function View (props) {
   // }
   
 
-  // const listCourses = (username) => {
+  // const listCourses = (studentNumber) => {
   //   props.history.push({
-  //     pathname: '/listcourse/' + username
+  //     pathname: '/listcourse/' + studentNumber
   //   });
   // };
 

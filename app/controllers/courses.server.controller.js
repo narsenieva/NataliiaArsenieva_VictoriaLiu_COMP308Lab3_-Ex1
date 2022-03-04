@@ -22,7 +22,7 @@ exports.create = function (req, res) {
     console.log(req.body)
     //
     //
-    Student.findOne({username: req.body.username}, (err, student) => {
+    Student.findOne({studentNumber: req.body.studentNumber}, (err, student) => {
 
         if (err) { return getErrorMessage(err); }
         //

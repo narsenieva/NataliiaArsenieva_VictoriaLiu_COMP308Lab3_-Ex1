@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 
 function EditStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
-  email: '',username: '',password: '' });  
+  email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: ''});  
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/students/" + props.match.params.id;
   //runs only once after the first render
@@ -28,8 +28,8 @@ function EditStudent(props) {
   const updateStudent = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { firstName: student.firstName, lastName: student.lastName, 
-      email: student.email,username: student.username };
+    const data = { firstName: student.firstName, lastName: student.lastName, email: student.email,studentNumber: student.studentNumber, 
+      address: student.address, city: student.city, phoneNumber: student.phoneNumber, program: student.program};
     axios.put(apiUrl, data)
       .then((result) => {
         setShowLoading(false);
@@ -65,10 +65,24 @@ function EditStudent(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label>Student Name</Form.Label>
-            <Form.Control type="text" name="username" id="username" placeholder="Enter username" value={student.username} onChange={onChange} />
+            <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number" value={student.studentNumber} onChange={onChange} />
           </Form.Group>
-          
-        
+          <Form.Group>
+            <Form.Label>Address</Form.Label>
+            <Form.Control type="text" name="address" id="address" placeholder="Enter address " value={student.address} onChange={onChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>City</Form.Label>
+            <Form.Control type="text" name="city" id="city" placeholder="Enter city" value={student.city} onChange={onChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter phoneNumber" value={student.phoneNumber} onChange={onChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Program</Form.Label>
+            <Form.Control type="text" name="program" id="program" placeholder="Enter program" value={student.program} onChange={onChange} />
+          </Form.Group>
           <Button variant="primary" type="submit">
             Update
           </Button>

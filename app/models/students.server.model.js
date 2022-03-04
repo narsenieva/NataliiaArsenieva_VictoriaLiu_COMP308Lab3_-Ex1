@@ -14,12 +14,12 @@ var StudentSchema = new Schema({
 		// Validate the email format
 		match: [/.+\@.+\..+/, "Please fill a valid email address"]
 	},
-	username: {
+	studentNumber: {
 		type: String,
 		// Set a unique 'username' index
 		unique: true,
 		// Validate 'username' value existance
-		required: 'Username is required',
+		required: 'studentNumber is required',
 		// Trim the 'username' field
 		trim: true
 	},
@@ -30,7 +30,11 @@ var StudentSchema = new Schema({
 			(password) => password && password.length > 6,
 			'Password should be longer'
 		]
-	}
+	},
+	address: String,
+	city: String,
+	phoneNumber: String,
+	program: String
 	
 });
 

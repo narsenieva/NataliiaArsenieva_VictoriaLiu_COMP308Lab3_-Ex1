@@ -18,7 +18,7 @@ const getErrorMessage = function(err) {
 			// If a unique index error occurs set the message error
 			case 11000:
 			case 11001:
-				message = 'Username already exists';
+				message = 'student already exists';
 				break;
 			// If a general error occurs set the message error
 			default:
@@ -56,9 +56,12 @@ exports.create = function (req, res, next) {
     student.firstName = req.body.firstName;
     student.lastName = req.body.lastName;
     student.email = req.body.email;
-    student.username = req.body.username;
+    student.studentNumber = req.body.studentNumber;
     student.password = req.body.password;
-   
+	student.address = req.body.address;
+	student.city = req.body.city;
+	student.phoneNumber = req.body.phoneNumber;
+	student.program = req.body.program;
     console.log(req.body)
     //
     //
@@ -138,10 +141,10 @@ exports.delete = function(req, res, next) {
 exports.authenticate = function(req, res, next) {
 	// Get credentials from request
 	console.log(req.body)
-	const username = req.body.auth.username;
+	const studentNumber = req.body.auth.studentNumber;
 	const password  = req.body.auth.password;
 	console.log(password)
-	console.log(username)
+	console.log(studentNumber)
 	// User.find({username : username}, function (err, user) {
 	// 	if (err) {
 			
@@ -223,7 +226,7 @@ exports.authenticate = function(req, res, next) {
 
 	// });
 	//find the user with given username using static method findOne
-	Student.findOne({username: username}, (err, student) => {
+	Student.findOne({studentNumber: studentNumber}, (err, student) => {
 			if (err) {
 				return next(err);
 			} else {
@@ -235,13 +238,13 @@ exports.authenticate = function(req, res, next) {
 			if(password === student.password) {
 				// Create a new token with the user id in the payload
   				// and which expires 300 seconds after issue
-				const token = jwt.sign({ id: student._id, username: student.username }, jwtKey, 
+				const token = jwt.sign({ id: student._id, studentNumber: student.studentNumber }, jwtKey, 
 					{algorithm: 'HS256', expiresIn: jwtExpirySeconds });
 				console.log('token:', token)
 				// set the cookie as the token string, with a similar max age as the token
 				// here, the max age is in milliseconds
 				res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-				res.status(200).send({ screen: student.username });
+				res.status(200).send({ screen: student.studentNumber });
 				//
 				//res.json({status:"success", message: "user found!!!", data:{user:
 				//user, token:token}});
@@ -250,7 +253,7 @@ exports.authenticate = function(req, res, next) {
 				//call the next middleware
 				next()
 			} else {
-				res.json({status:"error", message: "Invalid username/password!!!",
+				res.json({status:"error", message: "Invalid student number/password!!!",
 				data:null});
 			}
 		}
@@ -307,7 +310,7 @@ exports.welcome = (req, res) => {
 	// Finally, return the welcome message to the user, along with their
 	// username given in the token
 	// use back-quotes here
-	res.send(`${payload.username}`)
+	res.send(`${payload.studentNumber}`)
  };
  //
  //sign out function in controller
@@ -345,7 +348,7 @@ exports.isSignedIn = (req, res) => {
 	}
   
 	// Finally, token is ok, return the username given in the token
-	res.status(200).send({ screen: payload.username });
+	res.status(200).send({ screen: payload.studentNumber });
 }
 
 //isAuthenticated() method to check whether a user is currently authenticated
