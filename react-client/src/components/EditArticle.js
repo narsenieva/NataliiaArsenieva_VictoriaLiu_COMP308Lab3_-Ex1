@@ -57,7 +57,7 @@ function EditArticle(props) {
             <Form.Control type="text" name="title" id="title" placeholder="Enter article title" value={article.title} onChange={onChange} />
             </Form.Group>
           <Form.Group>
-            <Form.Label> Last Name</Form.Label>
+            <Form.Label> Content</Form.Label>
             <Form.Control type="text" name="content" id="content" placeholder="Enter article content" value={article.content} onChange={onChange} />
           </Form.Group>
           

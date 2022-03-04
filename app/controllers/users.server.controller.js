@@ -116,6 +116,86 @@ exports.authenticate = function(req, res, next) {
 	const password  = req.body.auth.password;
 	console.log(password)
 	console.log(username)
+	// User.find({username : username}, function (err, user) {
+	// 	if (err) {
+			
+	// 		console.log("error find username")
+	// 		return next(err);
+			
+	// 	} 
+	// 	else {
+	// 		console.log("found username")
+			
+	// 	}
+	// });
+
+	// console.log("here!!!!!")
+	// User.findOne({username : username}, (err, user) => {
+	// 	if (err) {
+	// 		// Call the next middleware with an error message
+			
+	// 		return next(err);
+	// 	} else {
+	// 		// Set the 'req.user' property
+    //         req.user = user;
+    //         console.log(user);
+	// 		console.log("found one?????")
+	// 		// Call the next middleware
+	// 		next();
+	// 	}
+	// });
+	// if(username === 'username' && password === 'password')
+    // {
+    //     //
+    //     // Create a new token with the username in the payload
+    //     // and which expires 300 seconds after issue
+    //     const token = jwt.sign({ username: username }, jwtKey, 
+    //         {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
+    //     console.log('token:', token)
+    //     // set the cookie as the token string, with a similar max age as the token
+    //     // here, the max age is in milliseconds
+    //     res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
+    //     res.status(200).send({ screen: username });
+    //     //call the next middleware
+    //     next()
+	// }
+    // else 
+    // {
+	//     res.json({status:"error", message: "Invalid username/password!!!", data:null});
+	// }
+
+	// User.find({username : username}, function (err, user) {
+	// 	if (err) {
+	// 		return next(err);
+	// 	} 
+	// 	else {
+	// 		console.log(user)
+
+	// 		if(bcrypt.compareSync(password, user.password)) {
+	// 			// Create a new token with the user id in the payload
+	// 			// and which expires 300 seconds after issue
+	// 			const token = jwt.sign({ id: user._id, username: user.username }, jwtKey, 
+	// 				{algorithm: 'HS256', expiresIn: jwtExpirySeconds });
+	// 			console.log('token:', token)
+	// 			// set the cookie as the token string, with a similar max age as the token
+	// 			// here, the max age is in milliseconds
+	// 			res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
+	// 			res.status(200).send({ screen: user.username });
+	// 			//
+	// 			res.json({status:"success", message: "user found!!!", data:{user:
+	// 			user, token:token}});
+						
+	// 			req.user=user;
+	// 			//call the next middleware
+	// 			next()
+	// 			} else {
+	// 			res.json({status:"error", message: "Invalid username/password!!!",
+	// 			data:null});
+	// 		}
+	// 	}
+
+
+	// });
 	//find the user with given username using static method findOne
 	User.findOne({username: username}, (err, user) => {
 			if (err) {
@@ -123,7 +203,10 @@ exports.authenticate = function(req, res, next) {
 			} else {
 			console.log(user)
 			//compare passwords	
-			if(bcrypt.compareSync(password, user.password)) {
+			console.log("TESTINGGGGGGG")
+			console.log(password)
+			console.log(user.password)
+			if(password === user.password) {
 				// Create a new token with the user id in the payload
   				// and which expires 300 seconds after issue
 				const token = jwt.sign({ id: user._id, username: user.username }, jwtKey, 
@@ -144,10 +227,28 @@ exports.authenticate = function(req, res, next) {
 				res.json({status:"error", message: "Invalid username/password!!!",
 				data:null});
 			}
-			
 		}
 		
-	});
+	 });
+	// if(username === 'username' && password === 'password')
+    // {
+    //     //
+    //     // Create a new token with the username in the payload
+    //     // and which expires 300 seconds after issue
+    //     const token = jwt.sign({ username: username }, jwtKey, 
+    //         {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
+    //     console.log('token:', token)
+    //     // set the cookie as the token string, with a similar max age as the token
+    //     // here, the max age is in milliseconds
+    //     res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
+    //     res.status(200).send({ screen: username });
+    //     //call the next middleware
+    //     next()
+	// } 
+    // else 
+    // {
+	//     res.json({status:"error", message: "Invalid username/password!!!", data:null});
+	// }
 };
 //
 // protected page uses the JWT token

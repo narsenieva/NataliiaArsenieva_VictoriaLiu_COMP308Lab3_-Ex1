@@ -38,6 +38,7 @@ function ListArticles(props) {
 
   return (
     <div>
+      <h2> List of Articles </h2>
       { data.length !== 0
         ? <div>
           {showLoading && <Spinner animation="border" role="status">

@@ -13,11 +13,13 @@ import './App.css';
 //
 import List from './components/List';
 import EditUser from './components/EditUser';
-import EditArticle from './components/EditArticle';
 
 import CreateUser from './components/CreateUser';
 import ShowUser from './components/ShowUser';
+
+import EditArticle from './components/EditArticle';
 import ShowArticle from './components/ShowArticle';
+import ListArticle from './components/ListArticles';
 
 import Home from './components/Home';
 import Login from './components/Login';
@@ -45,6 +47,7 @@ function App() {
           <Route render ={()=> < EditUser />} path="/edit/:id" />
           <Route render ={()=> < CreateUser />} path="/create" />
           <Route render ={()=> < ShowUser />} path="/show/:id" />
+          <Route render ={()=> < ListArticle />} path="/listarticle/:id" />
           <Route render ={()=> < ShowArticle />} path="/showarticle/:id" />
           <Route render ={()=> < EditArticle />} path="/editarticle/:id" />
 

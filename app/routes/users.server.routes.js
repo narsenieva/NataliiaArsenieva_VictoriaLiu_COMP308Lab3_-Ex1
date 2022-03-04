@@ -23,6 +23,7 @@ module.exports = function (app) {
     app.param('userId', users.userByID);
     //authenticate user
     app.post('/signin', users.authenticate);
+    //app.post('/login', users.authenticate);
     app.get('/signout', users.signout);
     app.get('/read_cookie', users.isSignedIn);
 
