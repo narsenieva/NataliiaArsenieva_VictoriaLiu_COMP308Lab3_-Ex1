@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 function CreateStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
-                email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: '' });
+                email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: '', listOfYourCourses: '' });
 
   const coursesForAdding = {}
 
@@ -28,7 +28,7 @@ function CreateStudent(props) {
     setShowLoading(true);
     e.preventDefault();
     const data = { firstName: student.firstName, lastName: student.lastName, email: student.email,studentNumber: student.studentNumber, password: student.password,
-      address: student.address, city: student.city, phoneNumber: student.phoneNumber, program: student.program };
+      address: student.address, city: student.city, phoneNumber: student.phoneNumber, program: student.program, listOfYourCourses: student.listOfYourCourses };
     if (student.password.length > 6) 
     {
       axios.post(apiUrl, data)
@@ -46,9 +46,23 @@ function CreateStudent(props) {
 
 
   const onChange = (e) => {
+    //handleList(e)
     e.persist();
     setStudent({...student, [e.target.name]: e.target.value});
   }
+
+
+  const handleList =  (e) => {
+    var options = e.target.options
+    for(var i =0;i<options.length ;i++){
+      if(options[i].selected ){
+        console.log(options[i].value)
+        coursesForAdding.push(options[i].value)
+      }
+    }
+    onChange(coursesForAdding)
+  }
+
 
   return (
     <div>
@@ -98,7 +112,7 @@ function CreateStudent(props) {
 
           <Form.Group>
             <Form.Label>Add Courses</Form.Label>
-              <Select isMulti options={options}>
+              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={options} onChange={handleList}>
               </Select>
           </Form.Group>
 

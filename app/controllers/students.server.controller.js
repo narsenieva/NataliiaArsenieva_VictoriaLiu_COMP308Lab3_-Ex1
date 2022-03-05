@@ -62,6 +62,7 @@ exports.create = function (req, res, next) {
 	student.city = req.body.city;
 	student.phoneNumber = req.body.phoneNumber;
 	student.program = req.body.program;
+	student.listOfYourCourses = req.body.listOfYourCourses;
     console.log(req.body)
     //
     //

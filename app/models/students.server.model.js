@@ -35,7 +35,7 @@ var StudentSchema = new Schema({
 	city: String,
 	phoneNumber: String,
 	program: String,
-	listOfYourCourses: {}
+	listOfYourCourses: Array
 	
 });
 
