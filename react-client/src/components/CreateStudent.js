@@ -10,7 +10,16 @@ import { withRouter } from 'react-router-dom';
 function CreateStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
                 email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: '', listOfYourCourses: '' });
-
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [studentNumber, setStudentNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [program, setProgram] = useState('');
+  const [listOfYourCourses, setListOfCourses] = useState('');
   const coursesForAdding = {}
 
   const options = [
@@ -23,6 +32,29 @@ function CreateStudent(props) {
 
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/";
+
+
+  const handleAddStudent = async (event) =>{
+    setShowLoading(true);
+    event.preventDefault();
+    const data = { firstName, lastName, email, studentNumber, password,
+    address, city, phoneNumber, program, listOfYourCourses };
+    
+      axios.post(apiUrl, data).then((result) => {
+        window.alert(`Student inserted successfully`)
+        setShowLoading(false);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setAddress('');
+        setCity('');
+        setPhoneNumber('');
+        setProgram('');
+        setListOfCourses('');
+        props.history.push('/show/' + result.data._id) 
+      }).catch((error) => setShowLoading(false));
+    
+};
 
   const saveStudent = (e) => {
     setShowLoading(true);
@@ -53,14 +85,17 @@ function CreateStudent(props) {
 
 
   const handleList =  (e) => {
-    var options = e.target.options
-    for(var i =0;i<options.length ;i++){
-      if(options[i].selected ){
-        console.log(options[i].value)
-        coursesForAdding.push(options[i].value)
-      }
-    }
-    onChange(coursesForAdding)
+    console.log(e)
+    setListOfCourses(Array.isArray(e) ? e.map(x => x.value) : []);
+
+    // var options = e.target.options
+    // for(var i =0;i<options.length ;i++){
+    //   if(options[i].selected ){
+    //     console.log(options[i].value)
+    //     coursesForAdding.push(options[i].value)
+    //   }
+    // }
+    // setListOfCourses(coursesForAdding)
   }
 
 
@@ -72,47 +107,57 @@ function CreateStudent(props) {
         </Spinner> 
       } 
       <Jumbotron>
-        <Form onSubmit={saveStudent}>
+        <Form onSubmit={handleAddStudent}>
           <Form.Group>
             <Form.Label> First Name</Form.Label>
-            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" value={student.firstName} onChange={onChange} />
+            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" 
+                          value={firstName} onChange={e => setFirstName(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label> Last Name</Form.Label>
-            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name" value={student.lastName} onChange={onChange} />
+            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name"
+                          value={lastName} onChange={e => setLastName(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Email</Form.Label>
-            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email" value={student.email} onChange={onChange} />
+            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email"
+                          value={email} onChange={e => setEmail(e.target.value)}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>Student Number</Form.Label>
-            <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number" value={student.studentNumber} onChange={onChange} />
+            <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number"
+                          value={studentNumber} onChange={e => setStudentNumber(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="text" name="password" id="password" placeholder="Enter password" value={student.password} onChange={onChange} />
+            <Form.Control type="text" name="password" id="password" placeholder="Enter password" 
+                          value={password} onChange={e => setPassword(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Address</Form.Label>
-            <Form.Control type="text" name="address" id="address" placeholder="Enter address" value={student.address} onChange={onChange} />
+            <Form.Control type="text" name="address" id="address" placeholder="Enter address"
+                          value={address} onChange={e => setAddress(e.target.value)}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" id="city" placeholder="Enter city" value={student.city} onChange={onChange} />
+            <Form.Control type="text" name="city" id="city" placeholder="Enter city" 
+                          value={city} onChange={e => setCity(e.target.value)}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number" value={student.phoneNumber} onChange={onChange} />
+            <Form.Control type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number" 
+                          value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Program</Form.Label>
-            <Form.Control type="text" name="program" id="program" placeholder="Enter program" value={student.program} onChange={onChange} />
+            <Form.Control type="text" name="program" id="program" placeholder="Enter program" 
+                          value={program} onChange={e => setProgram(e.target.value)}/>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Add Courses</Form.Label>
-              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={options} onChange={handleList}>
+              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={options} 
+                      onChange={handleList}>
               </Select>
           </Form.Group>
 
