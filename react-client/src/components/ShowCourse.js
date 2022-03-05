@@ -32,7 +32,7 @@ function ShowCourse(props) {
 
   const deleteCourse = (id) => {
     setShowLoading(true);
-    const course = { title: data.title, content: data.content };
+    const course = { courseCode: data.courseCode, courseName: data.courseName, section: data.section, semester: data.semester };
     //
     axios.delete(apiUrl, course)
       .then((result) => {
@@ -47,8 +47,8 @@ function ShowCourse(props) {
         <span className="sr-only">Loading...</span>
       </Spinner> }    
       <Jumbotron>
-        <h1>Title: {data.title}</h1>
-        <p>Content: {data.content}</p>
+        <h1>Course Code: {data.courseCode}</h1>
+        <p>Course Name: {data.courseName}</p>
 
         <p>
           <Button type="button" variant="primary" onClick={() => { editCourse(data._id) }}>Edit</Button>&nbsp;

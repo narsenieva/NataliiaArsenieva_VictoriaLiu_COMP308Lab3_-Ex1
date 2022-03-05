@@ -8,8 +8,8 @@ import { withRouter } from 'react-router-dom';
 
 function EditCourse(props) {
   console.log('edituser props:',props.match.params)
-  const [course, setCourse] = useState({ _id: '', title: '', 
-  content: '' });  
+  const [course, setCourse] = useState({ _id: '', courseCode: '', courseName: '', 
+  section: '', semester: '' });  
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/api/courses/" + props.match.params.id;
   //runs only once after the first render
@@ -29,7 +29,7 @@ function EditCourse(props) {
   const updateCourse = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = { title: course.title, content: course.content};
+    const data = { courseCode: course.courseCode, courseName: course.courseName, section: course.section, semester: course.semester};
     axios.put(apiUrl, data)
       .then((result) => {
         console.log('after calling put to update',result.data )
@@ -53,12 +53,20 @@ function EditCourse(props) {
       <Jumbotron>
         <Form onSubmit={updateCourse}>
           <Form.Group>
-            <Form.Label> Title</Form.Label>
-            <Form.Control type="text" name="title" id="title" placeholder="Enter course title" value={course.title} onChange={onChange} />
-            </Form.Group>
+            <Form.Label> Course Code</Form.Label>
+            <Form.Control type="text" name="courseCode" id="courseCode" placeholder="Enter course code" value={course.courseCode} onChange={onChange} />
+          </Form.Group>
           <Form.Group>
-            <Form.Label> Content</Form.Label>
-            <Form.Control type="text" name="content" id="content" placeholder="Enter course content" value={course.content} onChange={onChange} />
+            <Form.Label> Course Name</Form.Label>
+            <Form.Control type="text" name="courseName" id="courseName" placeholder="Enter course name" value={course.courseName} onChange={onChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label> Section</Form.Label>
+            <Form.Control type="text" name="section" id="secton" placeholder="Enter section" value={course.section} onChange={onChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label> Semester</Form.Label>
+            <Form.Control type="text" name="semester" id="semester" placeholder="Enter semester" value={course.semester} onChange={onChange} />
           </Form.Group>
           
           
