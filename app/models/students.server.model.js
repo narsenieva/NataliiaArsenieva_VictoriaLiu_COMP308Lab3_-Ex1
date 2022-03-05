@@ -34,7 +34,8 @@ var StudentSchema = new Schema({
 	address: String,
 	city: String,
 	phoneNumber: String,
-	program: String
+	program: String,
+	listOfYourCourses: {}
 	
 });
 
@@ -49,17 +50,17 @@ StudentSchema.virtual('fullName').get(function() {
 
 // Use a pre-save middleware to hash the password
 // before saving it into database
-StudentSchema.pre('save', function(next){
-	//hash the password before saving it
-	this.password = bcrypt.hashSync(this.password, saltRounds);
-	next();
-});
+// StudentSchema.pre('save', function(next){
+// 	//hash the password before saving it
+// 	this.password = bcrypt.hashSync(this.password, saltRounds);
+// 	next();
+// });
 
 // Create an instance method for authenticating user
 StudentSchema.methods.authenticate = function(password) {
 	//compare the hashed password of the database 
 	//with the hashed version of the password the user enters
-	return this.password === bcrypt.hashSync(password, saltRounds);
+	return this.password //=== bcrypt.hashSync(password, saltRounds);
 };
 
 

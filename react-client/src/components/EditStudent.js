@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
+import Select from 'react-select';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -9,6 +10,16 @@ import { withRouter } from 'react-router-dom';
 function EditStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
   email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: ''});  
+  
+  
+  const coursesForAdding = {}
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/students/" + props.match.params.id;
   //runs only once after the first render
@@ -83,6 +94,14 @@ function EditStudent(props) {
             <Form.Label>Program</Form.Label>
             <Form.Control type="text" name="program" id="program" placeholder="Enter program" value={student.program} onChange={onChange} />
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Add Courses</Form.Label>
+              <Select isMulti options={options}>
+              </Select>
+          </Form.Group>
+          
+
+
           <Button variant="primary" type="submit">
             Update
           </Button>

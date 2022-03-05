@@ -11,6 +11,8 @@ function View (props) {
   const [data, setData] = useState();
   //
   const [course, setCourse] = useState('');
+
+  //const firstName = screen.getParam('firstName');
   // called when user clicks on Logout button
   // to clear the cookie and set the screen state variable 
   // back to its initial state.
@@ -73,9 +75,9 @@ function View (props) {
   //
   return (
     <div className="App">
-      <p>{screen}</p>
+      <p>Your Student Number: {screen}</p>
       <p>{data}</p>
-      <button onClick={verifyCookie}>Verify Cookie</button>     
+      {/* <button onClick={verifyCookie}>Verify Cookie</button>      */}
       <button onClick={deleteCookie}>Log out</button>
       {course !== 'c' 
         ? <div>
