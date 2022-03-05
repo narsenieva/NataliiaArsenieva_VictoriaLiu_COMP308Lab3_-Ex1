@@ -21,22 +21,53 @@ function CreateStudent(props) {
   const [program, setProgram] = useState('');
   const [listOfYourCourses, setListOfCourses] = useState('');
  
-
+  let courseOptions = []
+  let coursesForDisplay = []
+  let coursesForAdding = []
+  let selectedCourses = []
+  
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }
   ]
 
-
-
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/";
+  const apiUrlCourses = "http://localhost:3000/api/courses";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      axios.get(apiUrlCourses)
+        .then(result => {
+          console.log('result.data:',result.data)
+          //check if the user has logged in
+          //if(result.data.screen !== 'auth')
+          //{
+            courseOptions = (result.data)
+            console.log(courseOptions)
+
+            handleDisplayCourses(courseOptions)
+
+            console.log(options)
+
+            //setData(result.data);
+            //setShowLoading(false);
+          //}
+        }).catch((error) => {
+          console.log('error in fetchData:', error)
+        });
+      };  
+    fetchData();
+  }, []);
 
 
   const handleAddStudent = async (event) =>{
     setShowLoading(true);
     event.preventDefault();
+
+    handletSetCourses(selectedCourses)
+    
     const data = { firstName, lastName, email, studentNumber, password,
     address, city, phoneNumber, program, listOfYourCourses };
     
@@ -84,9 +115,54 @@ function CreateStudent(props) {
   }
 
 
+  const handleDisplayCourses = (e) => {
+
+    let temp ={}
+
+
+    for(var i = 0; i < e.length; i++){
+      //console.log(e[i].courseCode + " f " + e[i].courseName )
+      //console.log(typeof(e[i].courseCode) + " course code")
+      temp = {value: e[i].courseCode, label: e[i].courseCode}
+      coursesForDisplay.push(temp)
+      temp = {}
+    }
+    
+
+    for(var j = 0 ; j < coursesForDisplay.length; j++)
+    {
+        //coursesForDisplay.label = coursesForDisplay[j]
+        console.log(coursesForDisplay[j].courseCode)
+
+    }
+
+    console.log(coursesForDisplay)
+    console.log(options)
+    //console.log(typeof(coursesForDisplay) + " dewiojioferfierow")
+    //console.log(typeof(options) + " dewiojioferfierow")
+  }
+
+
+  const handletSetCourses = (e)=>{
+    for(var i = 0; i < e.length; i++){
+      for(var j = 0; j < courseOptions.length; j++){
+        //console.log("hereeeeeeeeee " + e[i].value)
+        console.log(e[i] + " f "+ coursesForDisplay[j].value)
+        if(e[i] == courseOptions[j].courseCode){
+          coursesForAdding.push(courseOptions[j])
+          //console.log(e[i])
+        
+        }
+      }
+    }
+    console.log(coursesForAdding)
+    setListOfCourses(coursesForAdding)
+  }
+
   const handleList =  (e) => {
-    console.log(e)
-    setListOfCourses(Array.isArray(e) ? e.map(x => x.value) : []);
+    console.log("list "+ (Array.isArray(e) ? e.map(x => x.value) : []))
+    selectedCourses= Array.isArray(e) ? e.map(x => x.value) : []
+    //setListOfCourses(Array.isArray(e) ? e.map(x => x.value) : []);
 
     // var options = e.target.options
     // for(var i =0;i<options.length ;i++){
@@ -156,8 +232,9 @@ function CreateStudent(props) {
 
           <Form.Group>
             <Form.Label>Add Courses</Form.Label>
-              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={options} 
-                      onChange={handleList}>
+              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={coursesForDisplay} 
+                       onChange={handleList}>
+                       
               </Select>
           </Form.Group>
 
