@@ -20,7 +20,7 @@ function CreateStudent(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [program, setProgram] = useState('');
   const [listOfYourCourses, setListOfCourses] = useState('');
-  const coursesForAdding = {}
+ 
 
   const options = [
     { value: 'chocolate', label: 'Chocolate' },
