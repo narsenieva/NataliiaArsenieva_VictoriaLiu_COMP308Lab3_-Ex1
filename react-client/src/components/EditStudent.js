@@ -32,39 +32,64 @@ function EditStudent(props) {
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/students/" + props.match.params.id;
   //runs only once after the first render
+
   useEffect(() => {
     setShowLoading(false);
     //call api
     const fetchData = async () => {
       const result = await axios(apiUrl);
       //setListOfCourses(result.data.data.listOfYourCourses);
-      setStudent(result.data);
-      console.log(result.data);
+      //setStudent(result.data);
       setShowLoading(false);
       //const student = await api.getStudentById(id)
-      //setStudentNumber(student.data.data.studentNumber);
-      //setPassword(student.data.data.password);
-      //setFirstName(student.data.data.firstName);
-      //setLastName(student.data.data.lastName);
-      //setAddress(student.data.data.address);
-      //setCity(student.data.data.city);
-      //setPhoneNumber(student.data.data.phoneNumber);
-      //setEmail(student.data.data.email);
-      //setProgram(student.data.data.program);
-      
-      //setListOfCourses(student.data.data.listOfYourCourses);
-      console.log("hererereere NICE " + result.data.listOfYourCourses)
-     
-     // setCourse(student.data.data.course);
-      const test = Object.values(result.data.listOfYourCourses)
-      console.log(test)
-      handleSelectDefault(test)
-      console.log(coursesForAdding)
-      //console.log(test.length)
+      setStudentNumber(result.data.studentNumber);
+      setPassword(result.data.password);
+      setFirstName(result.data.firstName);
+      setLastName(result.data.lastName);
+      setAddress(result.data.address);
+      setCity(result.data.city);
+      setPhoneNumber(result.data.phoneNumber);
+      setEmail(result.data.email);
+      setProgram(result.data.program);
+      handleSelectDefault(Object.values(result.data.listOfYourCourses))
     };
-
     fetchData();
   }, []);
+
+
+  // useEffect(() => {
+  //   setShowLoading(false);
+  //   //call api
+  //   const fetchData = async () => {
+  //     const result = await axios(apiUrl);
+  //     //setListOfCourses(result.data.data.listOfYourCourses);
+  //     setStudent(result.data);
+  //     console.log(result.data);
+  //     setShowLoading(false);
+  //     //const student = await api.getStudentById(id)
+  //     //setStudentNumber(student.data.data.studentNumber);
+  //     //setPassword(student.data.data.password);
+  //     //setFirstName(student.data.data.firstName);
+  //     //setLastName(student.data.data.lastName);
+  //     //setAddress(student.data.data.address);
+  //     //setCity(student.data.data.city);
+  //     //setPhoneNumber(student.data.data.phoneNumber);
+  //     //setEmail(student.data.data.email);
+  //     //setProgram(student.data.data.program);
+      
+  //     //setListOfCourses(student.data.data.listOfYourCourses);
+  //     console.log("hererereere NICE " + result.data.listOfYourCourses)
+     
+  //    // setCourse(student.data.data.course);
+  //     const test = Object.values(result.data.listOfYourCourses)
+  //     console.log(test)
+  //     handleSelectDefault(test)
+  //     console.log(coursesForAdding)
+  //     //console.log(test.length)
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const updateStudent = (e) => {
     setShowLoading(true);
@@ -83,16 +108,15 @@ function EditStudent(props) {
     setStudent({...student, [e.target.name]: e.target.value});
   }
 
-
   const handleUpdateStudent = async (event) =>{
     setShowLoading(true);
     event.preventDefault();
     const data = { firstName, lastName, email, studentNumber, password,
     address, city, phoneNumber, program, listOfYourCourses };
-    
-      axios.post(apiUrl, data).then((result) => {
-        window.alert(`Student inserted successfully`)
-        setShowLoading(false);
+    axios.put(apiUrl, data).then((result) => {
+      setShowLoading(false);
+      window.alert("Student updated successfully")
+      setShowLoading(false);
         setFirstName('');
         setLastName('');
         setEmail('');
@@ -101,10 +125,31 @@ function EditStudent(props) {
         setPhoneNumber('');
         setProgram('');
         setListOfCourses('');
-        props.history.push('/show/' + result.data._id) 
-      }).catch((error) => setShowLoading(false));
-    
+      props.history.push('/show/' + result.data._id)
+    }).catch((error) => setShowLoading(false));
   };
+
+  // const handleUpdateStudent = async (event) =>{
+  //   setShowLoading(true);
+  //   event.preventDefault();
+  //   const data = { firstName, lastName, email, studentNumber, password,
+  //   address, city, phoneNumber, program, listOfYourCourses };
+    
+  //     axios.post(apiUrl, data).then((result) => {
+  //       window.alert(`Student inserted successfully`)
+  //       setShowLoading(false);
+  //       setFirstName('');
+  //       setLastName('');
+  //       setEmail('');
+  //       setAddress('');
+  //       setCity('');
+  //       setPhoneNumber('');
+  //       setProgram('');
+  //       setListOfCourses('');
+  //       props.history.push('/show/' + result.data._id) 
+  //     }).catch((error) => setShowLoading(false));
+    
+  // };
 
 
   const handleSelectDefault = (e) => {
@@ -153,38 +198,38 @@ function EditStudent(props) {
         </Spinner> 
       } 
       <Jumbotron>
-        <Form onSubmit={updateStudent}>
+        <Form onSubmit={handleUpdateStudent}>
           <Form.Group>
             <Form.Label> First Name</Form.Label>
-            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" value={student.firstName} onChange={onChange} />
+            <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" value={firstName} onChange={e => setFirstName(e.target.value)} />
             </Form.Group>
           <Form.Group>
             <Form.Label> Last Name</Form.Label>
-            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name" value={student.lastName} onChange={onChange} />
+            <Form.Control type="text" name="lastName" id="lastName" placeholder="Enter last name" value={lastName} onChange={e => setLastName(e.target.value)}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>Email</Form.Label>
-            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email" value={student.email} onChange={onChange} />
+            <Form.Control type="text" name="email" id="email" rows="3" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Student Name</Form.Label>
-            <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number" value={student.studentNumber} onChange={onChange} />
+            <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number" value={studentNumber} onChange={e => setStudentNumber(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Address</Form.Label>
-            <Form.Control type="text" name="address" id="address" placeholder="Enter address " value={student.address} onChange={onChange} />
+            <Form.Control type="text" name="address" id="address" placeholder="Enter address " value={address} onChange={e => setAddress(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" id="city" placeholder="Enter city" value={student.city} onChange={onChange} />
+            <Form.Control type="text" name="city" id="city" placeholder="Enter city" value={city} onChange={e => setCity(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter phoneNumber" value={student.phoneNumber} onChange={onChange} />
+            <Form.Control type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter phoneNumber" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Program</Form.Label>
-            <Form.Control type="text" name="program" id="program" placeholder="Enter program" value={student.program} onChange={onChange} />
+            <Form.Control type="text" name="program" id="program" placeholder="Enter program" value={program} onChange={e => setProgram(e.target.value)} />
           </Form.Group>
 
           <Form.Group>
