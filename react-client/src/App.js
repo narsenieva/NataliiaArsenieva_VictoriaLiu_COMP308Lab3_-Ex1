@@ -51,7 +51,7 @@ function App() {
             <Nav.Link href="/create">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/list">List of Students</Nav.Link>
-            <Nav.Link href="/course">Add Course</Nav.Link>
+          
             <Nav.Link href="/listcourses">Course List</Nav.Link>
             <Nav.Link href="/signout" onClick={deleteCookie}>Log out</Nav.Link>
           </Nav>
