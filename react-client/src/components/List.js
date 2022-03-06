@@ -18,8 +18,7 @@ function List(props) {
           console.log('result.data:',result.data)
           //check if the user has logged in
           if(result.data.screen !== 'auth')
-          {
-            
+          {           
             console.log('data in if:', result.data )
             setData(result.data);
             setShowLoading(false);

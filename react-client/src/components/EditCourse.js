@@ -67,10 +67,7 @@ function EditCourse(props) {
           <Form.Group>
             <Form.Label> Semester</Form.Label>
             <Form.Control type="text" name="semester" id="semester" placeholder="Enter semester" value={course.semester} onChange={onChange} />
-          </Form.Group>
-          
-          
-        
+          </Form.Group>    
           <Button variant="primary" type="submit">
             Update Course
           </Button>
