@@ -6,15 +6,13 @@ import { withRouter } from 'react-router-dom';
 import Login from './Login';
 
 function ListCourses(props) {
-  //console.log('props.match.params',props.match.params.id)
   const studentNumber = props.screen;
   const [data, setData] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/api/courses" ;
   const apiUrlStudent = "http://localhost:3000/students";
   let resultDataScreenStudent ;
-  //console.log(studentNumber)
-  //console.log("testing")
+ 
   useEffect(() => {
     const fetchData = async () => {
       axios.get(apiUrlStudent)
@@ -26,7 +24,6 @@ function ListCourses(props) {
       });
       axios.get(apiUrl)
         .then(result => {
-          //console.log('result.data:',result.data)
           //check if the user has logged in
           if(resultDataScreenStudent !== 'auth')
           {

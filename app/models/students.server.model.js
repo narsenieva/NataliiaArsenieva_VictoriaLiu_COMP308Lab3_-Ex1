@@ -18,28 +18,24 @@ var StudentSchema = new Schema({
 		type: String,
 		// Set a unique 'username' index
 		unique: true,
-		// Validate 'username' value existance
-		//required: 'studentNumber is required',
-		// Trim the 'username' field
+		//Validate 'username' value existance
+		required: 'studentNumber is required',
+		//Trim the 'username' field
 		trim: true
 	},
 	password: {
 		type: String,
 		// Validate the 'password' value length
-		// validate: [
-		// 	(password) => password && password.length > 6,
-		// 	'Password should be longer'
-		// ]
+		validate: [
+			(password) => password && password.length > 6,
+			'Password should be longer'
+		]
 	},
 	address: String,
 	city: String,
 	phoneNumber: String,
 	program: String,
-	//listOfYourCourses: Array
-	// listOfYourCourses: {
-    //     type: Schema.ObjectId,
-    //     ref: 'Course'
-    // }
+	
 	
 });
 

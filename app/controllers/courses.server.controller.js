@@ -52,55 +52,6 @@ exports.create = function (req, res) {
     });
 };
 //
-// exports.list = function (req, res, next, id) {
-//     Student.findOne({username: req.body.username}, (err, student) => {
-
-//         if (err) { return getErrorMessage(err); }
-//         //
-//         req.id = student._id;
-//         console.log('student._id',req.id);
-	
-//     }).then( function () 
-//     {
-        
-//         Course.findById(id).populate('takenBy', 'firstName lastName fullName').exec((err, course) => {
-//             if (err) return next(err);
-//             if (!course) return next(new Error('Failed to load course '+ id));
-//                 req.course = course;
-//                 console.log('in courseById:', req.course)
-//                 next();
-//             });
-//     });
-
-// };
-
-// exports.list = function (req, res) {
-//     Course.find().sort('-created').populate('takenBy', 'firstName lastName fullName').exec((err, courses) => {
-//         if (err) {
-//             return res.status(400).send({
-//                 message: getErrorMessage(err)
-//             });
-//         } else {
-//             //res.status(200).json(courses);
-//             if (req.course.takenBy.id == req.id) {
-//                 res.status(200).json(courses);
-//                 console.log(courses.takenBy.id)
-//             }
-//         }
-//     });
-// };
-
-
-// exports.list = function (req, res, next, id) {
-//     console.log("username")
-//     Course.findById(id).populate('takenBy', 'firstName lastName fullName').exec((err, course) => {if (err) return next(err);
-//         console.log("herererereererere")
-//         if (!course) return next(new Error('Failed to load course ' + id));
-//         req.course = course;
-//         console.log('in courseById:', req.course)
-//         next();
-//     });
-// };
 
 exports.list = function (req, res) {
     Course.find().sort('-created').populate('takenBy', 'firstName lastName fullName').exec((err, courses) => {
@@ -165,8 +116,7 @@ exports.delete = function (req, res) {
 exports.hasAuthorization = function (req, res, next) {
     console.log('in hasAuthorization - takenBy: ',req.course.takenBy)
     console.log('in hasAuthorization - student: ',req.id)
-    //console.log('in hasAuthorization - student: ',req.student._id)
-
+  
 
     if (req.course.takenBy.id !== req.id) {
         return res.status(403).send({

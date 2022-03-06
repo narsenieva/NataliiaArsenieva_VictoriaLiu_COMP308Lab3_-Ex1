@@ -20,21 +20,99 @@ function CreateStudent(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [program, setProgram] = useState('');
 
- 
-
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/";
 
+  let validatedStudentNumber = false;
+  let validatedPassword = false;
+  let validatedEmail = false;
+  let validatedPhone = false;
+  let validatedInput = false;
+
+  const handleInputStudentNumber = (e) => {
+    let value = e
+    const re = /^[0-9\b]+$/;
+    if (re.test(value)) {
+      setStudentNumber(value);
+      validatedStudentNumber = true;
+    }
+    else{
+      window.alert('Student Number: Please use numbers only.');
+      validatedStudentNumber = false;
+    }
+
+  }
+
+  const handleInputPassword = (e) => {
+    let value = e
+    if(e.length > 6)
+    {
+      setPassword(value);
+      validatedPassword = true;
+    }
+    else{
+      window.alert('Please make password 7+ characters long.');
+      validatedPassword = false;
+    }
+  }
+
+  const handleInputEmail = (e) => {
+    let value = e
+    const re = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
+    if (re.test(value) ){ 
+      setEmail(value);
+      validatedEmail = true;
+    }
+    else{
+      window.alert('Please enter a valid email.');
+      validatedEmail = false;
+    }
+
+  }
+
+  
+  const handleInputPhoneNumber = (e) => {
+    let value = e
+    const re = /^[0-9\b]+$/;
+    if (re.test(value)) {
+      setPhoneNumber(value);
+      validatedPhone = true;
+    }
+    else{
+      window.alert('Phone Number: Please use numbers only.');
+      validatedPhone = false;
+    }
+
+  }
+
+  const handleInputValidation = ()=> {
+    if(firstName !== '' && lastName !== '' && email !== '' && studentNumber !== '' && password !== ''  && address !== '' 
+    && city !== '' && phoneNumber !== ''&& program !== '') {
+        handleInputStudentNumber(studentNumber);
+        handleInputPassword(password)
+        handleInputEmail(email);
+        handleInputPhoneNumber(phoneNumber);
+        if(validatedStudentNumber && validatedPassword && validatedEmail && validatedPhone) {
+            validatedInput = true;
+        }
+    } else {
+        validatedInput = false;
+    }
+  }
 
 
-  const handleAddStudent = async (event) =>{
-    setShowLoading(true);
+  const handleAddStudent = async (event) =>{ 
     event.preventDefault();
+    validatedInput = false;
+    handleInputValidation();
 
-    
-    const data = { firstName, lastName, email, studentNumber, password,
-    address, city, phoneNumber, program };
-    
+    if(validatedInput){
+      setShowLoading(true);
+      
+
+      const data = { firstName, lastName, email, studentNumber, password,
+        address, city, phoneNumber, program };
+
       axios.post(apiUrl, data).then((result) => {
         window.alert(`Student inserted successfully`)
         setShowLoading(false);
@@ -47,9 +125,18 @@ function CreateStudent(props) {
         setProgram('');
         props.history.push('/show/' + result.data._id) 
       }).catch((error) => setShowLoading(false));
+
+
+    } 
+    else {
+      window.alert('Please fill out all the fields!');
+    }
+    
     
 };
 
+
+  
 
   const onChange = (e) => {
     //handleList(e)

@@ -5,8 +5,6 @@ import React, { Component }  from 'react';
 
 function Home(props)
 {
-
-
     return (
         <div>
             <h2> Welcome</h2>

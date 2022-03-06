@@ -36,22 +36,6 @@ const getErrorMessage = function(err) {
 };
 // Create a new user
 exports.create = function (req, res, next) {
-    // Create a new instance of the 'User' Mongoose model
-    // var user = new User(req.body); //get data from React form
-    // console.log("body: " + req.body.username);
-
-    // // Use the 'User' instance's 'save' method to save a new user document
-    // user.save(function (err) {
-    //     if (err) {
-    //         // Call the next middleware with an error message
-    //         return next(err);
-    //     } else {
-    //         // Use the 'response' object to send a JSON response
-    //         res.json(user);
-            
-    //     }
-    // });
-
 	const student = new Student();
     student.firstName = req.body.firstName;
     student.lastName = req.body.lastName;
@@ -62,11 +46,8 @@ exports.create = function (req, res, next) {
 	student.city = req.body.city;
 	student.phoneNumber = req.body.phoneNumber;
 	student.program = req.body.program;
-	//student.listOfYourCourses = req.body.listOfYourCourses;
     console.log(req.body)
-    //
-    //
-
+   
     student.save((err) => {
         if (err) {
             console.log('error', getErrorMessage(err))
@@ -78,9 +59,6 @@ exports.create = function (req, res, next) {
             res.status(200).json(student);
         }
     });
-
-
-
 };
 //
 // Returns all students
@@ -141,91 +119,9 @@ exports.delete = function(req, res, next) {
 // authenticates a student
 exports.authenticate = function(req, res, next) {
 	// Get credentials from request
-	console.log(req.body)
 	const studentNumber = req.body.auth.studentNumber;
 	const password  = req.body.auth.password;
-	console.log(password)
-	console.log(studentNumber)
-	// User.find({username : username}, function (err, user) {
-	// 	if (err) {
-			
-	// 		console.log("error find username")
-	// 		return next(err);
-			
-	// 	} 
-	// 	else {
-	// 		console.log("found username")
-			
-	// 	}
-	// });
-
-	// console.log("here!!!!!")
-	// User.findOne({username : username}, (err, user) => {
-	// 	if (err) {
-	// 		// Call the next middleware with an error message
-			
-	// 		return next(err);
-	// 	} else {
-	// 		// Set the 'req.user' property
-    //         req.user = user;
-    //         console.log(user);
-	// 		console.log("found one?????")
-	// 		// Call the next middleware
-	// 		next();
-	// 	}
-	// });
-	// if(username === 'username' && password === 'password')
-    // {
-    //     //
-    //     // Create a new token with the username in the payload
-    //     // and which expires 300 seconds after issue
-    //     const token = jwt.sign({ username: username }, jwtKey, 
-    //         {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
-    //     console.log('token:', token)
-    //     // set the cookie as the token string, with a similar max age as the token
-    //     // here, the max age is in milliseconds
-    //     res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-    //     res.status(200).send({ screen: username });
-    //     //call the next middleware
-    //     next()
-	// }
-    // else 
-    // {
-	//     res.json({status:"error", message: "Invalid username/password!!!", data:null});
-	// }
-
-	// User.find({username : username}, function (err, user) {
-	// 	if (err) {
-	// 		return next(err);
-	// 	} 
-	// 	else {
-	// 		console.log(user)
-
-	// 		if(bcrypt.compareSync(password, user.password)) {
-	// 			// Create a new token with the user id in the payload
-	// 			// and which expires 300 seconds after issue
-	// 			const token = jwt.sign({ id: user._id, username: user.username }, jwtKey, 
-	// 				{algorithm: 'HS256', expiresIn: jwtExpirySeconds });
-	// 			console.log('token:', token)
-	// 			// set the cookie as the token string, with a similar max age as the token
-	// 			// here, the max age is in milliseconds
-	// 			res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-	// 			res.status(200).send({ screen: user.username });
-	// 			//
-	// 			res.json({status:"success", message: "user found!!!", data:{user:
-	// 			user, token:token}});
-						
-	// 			req.user=user;
-	// 			//call the next middleware
-	// 			next()
-	// 			} else {
-	// 			res.json({status:"error", message: "Invalid username/password!!!",
-	// 			data:null});
-	// 		}
-	// 	}
-
-
-	// });
+	
 	//find the user with given username using static method findOne
 	Student.findOne({studentNumber: studentNumber}, (err, student) => {
 			if (err) {
@@ -233,9 +129,7 @@ exports.authenticate = function(req, res, next) {
 			} else {
 			console.log(student)
 			//compare passwords	
-			console.log("TESTINGGGGGGG")
-			console.log(password)
-			console.log(student.password)
+			
 			if(password === student.password) {
 				// Create a new token with the user id in the payload
   				// and which expires 300 seconds after issue
@@ -260,25 +154,7 @@ exports.authenticate = function(req, res, next) {
 		}
 		
 	 });
-	// if(username === 'username' && password === 'password')
-    // {
-    //     //
-    //     // Create a new token with the username in the payload
-    //     // and which expires 300 seconds after issue
-    //     const token = jwt.sign({ username: username }, jwtKey, 
-    //         {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
-    //     console.log('token:', token)
-    //     // set the cookie as the token string, with a similar max age as the token
-    //     // here, the max age is in milliseconds
-    //     res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000,httpOnly: true});
-    //     res.status(200).send({ screen: username });
-    //     //call the next middleware
-    //     next()
-	// } 
-    // else 
-    // {
-	//     res.json({status:"error", message: "Invalid username/password!!!", data:null});
-	// }
+	
 };
 //
 // protected page uses the JWT token
