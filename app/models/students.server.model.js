@@ -36,10 +36,10 @@ var StudentSchema = new Schema({
 	phoneNumber: String,
 	program: String,
 	//listOfYourCourses: Array
-	listOfYourCourses: {
-        type: Schema.ObjectId,
-        ref: 'Course'
-    }
+	// listOfYourCourses: {
+    //     type: Schema.ObjectId,
+    //     ref: 'Course'
+    // }
 	
 });
 

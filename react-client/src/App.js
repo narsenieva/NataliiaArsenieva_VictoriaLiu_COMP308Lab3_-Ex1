@@ -17,14 +17,29 @@ import EditStudent from './components/EditStudent';
 import CreateStudent from './components/CreateStudent';
 import ShowStudent from './components/ShowStudent';
 
+import CreateCourse from './components/CreateCourse';
 import EditCourse from './components/EditCourse';
 import ShowCourse from './components/ShowCourse';
-import ListCourse from './components/ListCourses';
+import ListCourses from './components/ListCourses';
 
 import Home from './components/Home';
 import Login from './components/Login';
 //
+import axios from 'axios';
+
+
+
 function App() {
+
+  const deleteCookie = async () => {
+    try {
+      await axios.get('/signout');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
 
   return (
     <Router>
@@ -32,10 +47,13 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            {/* <Nav.Link href="/home">Home</Nav.Link> */}
+            <Nav.Link href="/create">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/list">List of Students</Nav.Link>
-            <Nav.Link href="/create">Sign Up</Nav.Link>
+            <Nav.Link href="/course">Add Course</Nav.Link>
+            <Nav.Link href="/listcourses">Course List</Nav.Link>
+            <Nav.Link href="/signout" onClick={deleteCookie}>Log out</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -47,9 +65,10 @@ function App() {
           <Route render ={()=> < EditStudent />} path="/edit/:id" />
           <Route render ={()=> < CreateStudent />} path="/create" />
           <Route render ={()=> < ShowStudent />} path="/show/:id" />
-          <Route render ={()=> < ListCourse />} path="/listcourse/:id" />
+          <Route render ={()=> < ListCourses />} path="/listcourses" />
           <Route render ={()=> < ShowCourse />} path="/showcourse/:id" />
           <Route render ={()=> < EditCourse />} path="/editcourse/:id" />
+          <Route render ={()=> < CreateCourse />} path="/course" />
 
       </div>
 

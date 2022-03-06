@@ -75,57 +75,13 @@ function View (props) {
   //
   return (
     <div className="App">
-      <p>Your Student Number: {screen}</p>
-      <p>{data}</p>
-      {/* <button onClick={verifyCookie}>Verify Cookie</button>      */}
-      <button onClick={deleteCookie}>Log out</button>
-      {course !== 'c' 
-        ? <div>
-            {/* <p>{screen}</p>
-            <p>{data}</p> */}
-            
-            <button onClick={createCourse}>Create Course</button>    
-          </div>            
-        : 
-          <CreateCourse screen={screen} setScreen={setScreen} />
-      }
-
-      {course == 'l'
-        ? <ListCourses screen={screen} setScreen={setScreen} /> :
-        <div>
-            {/* <p>{screen}</p>
-            <p>{data}</p> */}
-            <button onClick={listCourses}>List Courses</button>
-          </div>            
-      }
-
-      {/* {course !== 'y'
-        ? <div>
-            <p>{screen}</p>
-            <p>{data}</p>
-            <button onClick={verifyCookie}>Verify Cookie</button>
-            <button onClick={createCourse}>Create Course</button>
-            <button onClick={listCourses}>List Courses</button>
-
-            <button onClick={deleteCookie}>Log out</button>
-          </div>            
-        : <CreateCourse screen={screen} setScreen={setScreen} />
-        
-      } */}
-      {/* {course !== 'a'
-        ? <div>
-            <p>{screen}</p>
-            <p>{data}</p>
-            <button onClick={verifyCookie}>Verify Cookie</button>
-            <button onClick={createCourse}>Create Course</button>
-            <button onClick={listCourses}>List Courses</button>
-
-            <button onClick={deleteCookie}>Log out</button>
-          </div>            
-        : <ListCourses screen={screen} setScreen={setScreen} />
-        
-      } */}
-      
+      <h1>Your Student Number: {screen}</h1>
+      <h1>{data}</h1>
+     
+      <h2>Welcome, please use the nav bar to navigate.</h2>
+      <h4>Created by:</h4>
+      <h5>Nataliia Arsenieva (301043237) and Victoria Liu (301028404)</h5>
+      <h5>COMP308 Lab02 Ex1</h5>
     </div>
   );
 }

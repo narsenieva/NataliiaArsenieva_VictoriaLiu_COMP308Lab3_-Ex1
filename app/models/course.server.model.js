@@ -14,7 +14,7 @@ const CourseSchema = new Schema({
     courseName: String,
     section: String,
     semester: String,
-    creator: {
+    takenBy: {
         type: Schema.ObjectId,
         ref: 'Student'
     }

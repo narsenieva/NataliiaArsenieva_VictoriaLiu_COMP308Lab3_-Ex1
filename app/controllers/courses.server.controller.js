@@ -20,7 +20,7 @@ exports.create = function (req, res) {
     course.courseName = req.body.courseName;
     course.section = req.body.section;
     course.semester = req.body.semester;
-    //course.creator = req.body.username;
+    //course.takenBy = req.body.username;
     console.log(req.body)
     //
     //
@@ -34,7 +34,7 @@ exports.create = function (req, res) {
 	
     }).then( function () 
     {
-        course.creator = req.id
+        course.takenBy = req.id
         console.log('req.student._id',req.id);
 
         course.save((err) => {
@@ -63,7 +63,7 @@ exports.create = function (req, res) {
 //     }).then( function () 
 //     {
         
-//         Course.findById(id).populate('creator', 'firstName lastName fullName').exec((err, course) => {
+//         Course.findById(id).populate('takenBy', 'firstName lastName fullName').exec((err, course) => {
 //             if (err) return next(err);
 //             if (!course) return next(new Error('Failed to load course '+ id));
 //                 req.course = course;
@@ -75,16 +75,16 @@ exports.create = function (req, res) {
 // };
 
 // exports.list = function (req, res) {
-//     Course.find().sort('-created').populate('creator', 'firstName lastName fullName').exec((err, courses) => {
+//     Course.find().sort('-created').populate('takenBy', 'firstName lastName fullName').exec((err, courses) => {
 //         if (err) {
 //             return res.status(400).send({
 //                 message: getErrorMessage(err)
 //             });
 //         } else {
 //             //res.status(200).json(courses);
-//             if (req.course.creator.id == req.id) {
+//             if (req.course.takenBy.id == req.id) {
 //                 res.status(200).json(courses);
-//                 console.log(courses.creator.id)
+//                 console.log(courses.takenBy.id)
 //             }
 //         }
 //     });
@@ -93,7 +93,7 @@ exports.create = function (req, res) {
 
 // exports.list = function (req, res, next, id) {
 //     console.log("username")
-//     Course.findById(id).populate('creator', 'firstName lastName fullName').exec((err, course) => {if (err) return next(err);
+//     Course.findById(id).populate('takenBy', 'firstName lastName fullName').exec((err, course) => {if (err) return next(err);
 //         console.log("herererereererere")
 //         if (!course) return next(new Error('Failed to load course ' + id));
 //         req.course = course;
@@ -103,7 +103,7 @@ exports.create = function (req, res) {
 // };
 
 exports.list = function (req, res) {
-    Course.find().sort('-created').populate('creator', 'firstName lastName fullName').exec((err, courses) => {
+    Course.find().sort('-created').populate('takenBy', 'firstName lastName fullName').exec((err, courses) => {
     if (err) {
         return res.status(400).send({
             message: getErrorMessage(err)
@@ -116,7 +116,7 @@ exports.list = function (req, res) {
 
 //
 exports.courseByID = function (req, res, next, id) {
-    Course.findById(id).populate('creator', 'firstName lastName fullName').exec((err, course) => {if (err) return next(err);
+    Course.findById(id).populate('takenBy', 'firstName lastName fullName').exec((err, course) => {if (err) return next(err);
     if (!course) return next(new Error('Failed to load course '
             + id));
         req.course = course;
@@ -161,14 +161,14 @@ exports.delete = function (req, res) {
     });
 };
 //The hasAuthorization() middleware uses the req.course and req.student objects
-//to verify that the current student is the creator of the current course
+//to verify that the current student is the takenBy of the current course
 exports.hasAuthorization = function (req, res, next) {
-    console.log('in hasAuthorization - creator: ',req.course.creator)
+    console.log('in hasAuthorization - takenBy: ',req.course.takenBy)
     console.log('in hasAuthorization - student: ',req.id)
     //console.log('in hasAuthorization - student: ',req.student._id)
 
 
-    if (req.course.creator.id !== req.id) {
+    if (req.course.takenBy.id !== req.id) {
         return res.status(403).send({
             message: 'Student is not authorized'
         });
