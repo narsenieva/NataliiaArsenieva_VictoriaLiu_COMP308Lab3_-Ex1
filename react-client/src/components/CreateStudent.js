@@ -23,6 +23,7 @@ function CreateStudent(props) {
  
   let courseOptions = []
   let coursesForDisplay = []
+  let coursesForDisplayCopy = []
   let coursesForAdding = []
   let selectedCourses = []
   
@@ -37,19 +38,21 @@ function CreateStudent(props) {
   const apiUrlCourses = "http://localhost:3000/api/courses";
 
   useEffect(() => {
+    //console.log("useeffect")
     const fetchData = async () => {
+     // console.log("fetch")
       axios.get(apiUrlCourses)
         .then(result => {
-          console.log('result.data:',result.data)
+          //console.log('result.data:',result.data)
           //check if the user has logged in
           //if(result.data.screen !== 'auth')
           //{
             courseOptions = (result.data)
-            console.log(courseOptions)
+            //console.log(courseOptions)
 
             handleDisplayCourses(courseOptions)
 
-            console.log(options)
+            //console.log(options)
 
             //setData(result.data);
             //setShowLoading(false);
@@ -97,7 +100,7 @@ function CreateStudent(props) {
       axios.post(apiUrl, data)
       .then((result) => {
         setShowLoading(false);
-        console.log('results from student:',result.data)
+        //console.log('results from student:',result.data)
         props.history.push('/show/' + result.data._id)
       }).catch((error) => setShowLoading(false));
 
@@ -115,6 +118,13 @@ function CreateStudent(props) {
   }
 
 
+  const handleInputProgram = (event)=> {
+    let value = event
+    setProgram(value)
+    console.log(coursesForDisplay)
+    //handleDisplayCourses(courseOptions)
+}
+
   const handleDisplayCourses = (e) => {
 
     let temp ={}
@@ -128,16 +138,16 @@ function CreateStudent(props) {
       temp = {}
     }
     
+    coursesForDisplayCopy = coursesForDisplay
+    // for(var j = 0 ; j < coursesForDisplay.length; j++)
+    // {
+    //     //coursesForDisplay.label = coursesForDisplay[j]
+    //     console.log("looooppo "+coursesForDisplay[j].courseCode)
 
-    for(var j = 0 ; j < coursesForDisplay.length; j++)
-    {
-        //coursesForDisplay.label = coursesForDisplay[j]
-        console.log(coursesForDisplay[j].courseCode)
+    // }
 
-    }
-
-    console.log(coursesForDisplay)
-    console.log(options)
+    //console.log(coursesForDisplay)
+    //console.log(options)
     //console.log(typeof(coursesForDisplay) + " dewiojioferfierow")
     //console.log(typeof(options) + " dewiojioferfierow")
   }
@@ -147,7 +157,7 @@ function CreateStudent(props) {
     for(var i = 0; i < e.length; i++){
       for(var j = 0; j < courseOptions.length; j++){
         //console.log("hereeeeeeeeee " + e[i].value)
-        console.log(e[i] + " f "+ coursesForDisplay[j].value)
+       // console.log(e[i] + " f "+ coursesForDisplay[j].value)
         if(e[i] == courseOptions[j].courseCode){
           coursesForAdding.push(courseOptions[j])
           //console.log(e[i])
@@ -160,8 +170,13 @@ function CreateStudent(props) {
   }
 
   const handleList =  (e) => {
-    console.log("list "+ (Array.isArray(e) ? e.map(x => x.value) : []))
+    //handleDisplayCourses(courseOptions)
+
+    //console.log("list "+ (Array.isArray(e) ? e.map(x => x.value) : []))
     selectedCourses= Array.isArray(e) ? e.map(x => x.value) : []
+    
+    //console.log(coursesForDisplay)
+
     //setListOfCourses(Array.isArray(e) ? e.map(x => x.value) : []);
 
     // var options = e.target.options
@@ -173,7 +188,12 @@ function CreateStudent(props) {
     // }
     // setListOfCourses(coursesForAdding)
   }
-
+  const redisplayListCourses =  () => {
+    console.log("HERREEREREER")
+    handleDisplayCourses(courseOptions)
+    coursesForDisplay = coursesForDisplayCopy
+    console.log(coursesForDisplayCopy)
+  }
 
   return (
     <div>
@@ -183,7 +203,7 @@ function CreateStudent(props) {
         </Spinner> 
       } 
       <Jumbotron>
-        <Form onSubmit={handleAddStudent}>
+        <Form onSubmit={handleAddStudent} onChange={redisplayListCourses()}>
           <Form.Group>
             <Form.Label> First Name</Form.Label>
             <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" 
