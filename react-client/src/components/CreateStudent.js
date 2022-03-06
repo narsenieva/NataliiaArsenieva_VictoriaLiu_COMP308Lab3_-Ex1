@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 function CreateStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
-                email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: '', listOfYourCourses: '' });
+                email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: ''});
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,60 +19,21 @@ function CreateStudent(props) {
   const [city, setCity] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [program, setProgram] = useState('');
-  const [listOfYourCourses, setListOfCourses] = useState('');
+
  
-  let courseOptions = []
-  let coursesForDisplay = []
-  let coursesForDisplayCopy = []
-  let coursesForAdding = []
-  let selectedCourses = []
-  
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
 
   const [showLoading, setShowLoading] = useState(false);
   const apiUrl = "http://localhost:3000/";
-  const apiUrlCourses = "http://localhost:3000/api/courses";
 
-  useEffect(() => {
-    //console.log("useeffect")
-    const fetchData = async () => {
-     // console.log("fetch")
-      axios.get(apiUrlCourses)
-        .then(result => {
-          //console.log('result.data:',result.data)
-          //check if the user has logged in
-          //if(result.data.screen !== 'auth')
-          //{
-            courseOptions = (result.data)
-            //console.log(courseOptions)
-
-            handleDisplayCourses(courseOptions)
-
-            //console.log(options)
-
-            //setData(result.data);
-            //setShowLoading(false);
-          //}
-        }).catch((error) => {
-          console.log('error in fetchData:', error)
-        });
-      };  
-    fetchData();
-  }, []);
 
 
   const handleAddStudent = async (event) =>{
     setShowLoading(true);
     event.preventDefault();
 
-    handletSetCourses(selectedCourses)
     
     const data = { firstName, lastName, email, studentNumber, password,
-    address, city, phoneNumber, program, listOfYourCourses };
+    address, city, phoneNumber, program };
     
       axios.post(apiUrl, data).then((result) => {
         window.alert(`Student inserted successfully`)
@@ -84,116 +45,18 @@ function CreateStudent(props) {
         setCity('');
         setPhoneNumber('');
         setProgram('');
-        setListOfCourses('');
         props.history.push('/show/' + result.data._id) 
       }).catch((error) => setShowLoading(false));
     
 };
 
-  const saveStudent = (e) => {
-    setShowLoading(true);
-    e.preventDefault();
-    const data = { firstName: student.firstName, lastName: student.lastName, email: student.email,studentNumber: student.studentNumber, password: student.password,
-      address: student.address, city: student.city, phoneNumber: student.phoneNumber, program: student.program, listOfYourCourses: student.listOfYourCourses };
-    if (student.password.length > 6) 
-    {
-      axios.post(apiUrl, data)
-      .then((result) => {
-        setShowLoading(false);
-        //console.log('results from student:',result.data)
-        props.history.push('/show/' + result.data._id)
-      }).catch((error) => setShowLoading(false));
-
-    }
-    else{
-      window.alert('Password must be greater than 6 characters')
-    }
-  };
-
 
   const onChange = (e) => {
     //handleList(e)
     e.persist();
-    setStudent({...student, [e.target.name]: e.target.value});
+    setStudent({...student, [e.target.name]: e.target.value}); 
   }
 
-
-  const handleInputProgram = (event)=> {
-    let value = event
-    setProgram(value)
-    console.log(coursesForDisplay)
-    //handleDisplayCourses(courseOptions)
-}
-
-  const handleDisplayCourses = (e) => {
-
-    let temp ={}
-
-
-    for(var i = 0; i < e.length; i++){
-      //console.log(e[i].courseCode + " f " + e[i].courseName )
-      //console.log(typeof(e[i].courseCode) + " course code")
-      temp = {value: e[i].courseCode, label: e[i].courseCode}
-      coursesForDisplay.push(temp)
-      temp = {}
-    }
-    
-    coursesForDisplayCopy = coursesForDisplay
-    // for(var j = 0 ; j < coursesForDisplay.length; j++)
-    // {
-    //     //coursesForDisplay.label = coursesForDisplay[j]
-    //     console.log("looooppo "+coursesForDisplay[j].courseCode)
-
-    // }
-
-    //console.log(coursesForDisplay)
-    //console.log(options)
-    //console.log(typeof(coursesForDisplay) + " dewiojioferfierow")
-    //console.log(typeof(options) + " dewiojioferfierow")
-  }
-
-
-  const handletSetCourses = (e)=>{
-    for(var i = 0; i < e.length; i++){
-      for(var j = 0; j < courseOptions.length; j++){
-        //console.log("hereeeeeeeeee " + e[i].value)
-       // console.log(e[i] + " f "+ coursesForDisplay[j].value)
-        if(e[i] == courseOptions[j].courseCode){
-          coursesForAdding.push(courseOptions[j])
-          //console.log(e[i])
-        
-        }
-      }
-    }
-    console.log(coursesForAdding)
-    setListOfCourses(coursesForAdding)
-  }
-
-  const handleList =  (e) => {
-    //handleDisplayCourses(courseOptions)
-
-    //console.log("list "+ (Array.isArray(e) ? e.map(x => x.value) : []))
-    selectedCourses= Array.isArray(e) ? e.map(x => x.value) : []
-    
-    //console.log(coursesForDisplay)
-
-    //setListOfCourses(Array.isArray(e) ? e.map(x => x.value) : []);
-
-    // var options = e.target.options
-    // for(var i =0;i<options.length ;i++){
-    //   if(options[i].selected ){
-    //     console.log(options[i].value)
-    //     coursesForAdding.push(options[i].value)
-    //   }
-    // }
-    // setListOfCourses(coursesForAdding)
-  }
-  const redisplayListCourses =  () => {
-    console.log("HERREEREREER")
-    handleDisplayCourses(courseOptions)
-    coursesForDisplay = coursesForDisplayCopy
-    console.log(coursesForDisplayCopy)
-  }
 
   return (
     <div>
@@ -203,7 +66,7 @@ function CreateStudent(props) {
         </Spinner> 
       } 
       <Jumbotron>
-        <Form onSubmit={handleAddStudent} onChange={redisplayListCourses()}>
+        <Form onSubmit={handleAddStudent} >
           <Form.Group>
             <Form.Label> First Name</Form.Label>
             <Form.Control type="text" name="firstName" id="firstName" placeholder="Enter first name" 
@@ -249,15 +112,6 @@ function CreateStudent(props) {
             <Form.Control type="text" name="program" id="program" placeholder="Enter program" 
                           value={program} onChange={e => setProgram(e.target.value)}/>
           </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Add Courses</Form.Label>
-              <Select isMulti name="listOfYourCourses" id="listOfYourCourses"  options={coursesForDisplay} 
-                       onChange={handleList}>
-                       
-              </Select>
-          </Form.Group>
-
 
           <Button variant="primary" type="submit">
             Save
