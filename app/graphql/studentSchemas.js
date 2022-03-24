@@ -23,6 +23,12 @@ const studentType = new GraphQLObjectType({
         lastName: {
           type: GraphQLString
         },
+        studentNumber: {
+          type: GraphQLString
+        },
+        password: {
+          type: GraphQLString
+        },
         address: {
           type: GraphQLString
         },
@@ -38,8 +44,6 @@ const studentType = new GraphQLObjectType({
         program: {
           type: GraphQLString
         }
-        
-        
       }
     }
   });
@@ -96,14 +100,23 @@ const studentType = new GraphQLObjectType({
             email: {
               type: new GraphQLNonNull(GraphQLString)
             },
-            college: {
+            studentNumber: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            password: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            address: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            city: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            phoneNumber: {
               type: new GraphQLNonNull(GraphQLString)
             },
             program: {
               type: new GraphQLNonNull(GraphQLString)
-            },
-            startingYear: {
-              type: new GraphQLNonNull(GraphQLInt)
             }
           },
           resolve: function (root, params) {
@@ -131,21 +144,30 @@ const studentType = new GraphQLObjectType({
             email: {
               type: new GraphQLNonNull(GraphQLString)
             },
-            college: {
+            studentNumber: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            password: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            address: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            city: {
+              type: new GraphQLNonNull(GraphQLString)
+            },
+            phoneNumber: {
               type: new GraphQLNonNull(GraphQLString)
             },
             program: {
               type: new GraphQLNonNull(GraphQLString)
-            },
-            startingYear: {
-              type: new GraphQLNonNull(GraphQLInt)
             }
-            
           },
           resolve(root, params) {
             return StudentModel.findByIdAndUpdate(params.id, { firstName: params.firstName, 
-              lastName: params.lastName, email: params.email, college: params.college, 
-              program: params.program, startingYear: params.startingYear 
+              lastName: params.lastName, email: params.email, studentNumber: params.studentNumber,
+              password: params.password, address: params.address, city: params.city,
+              phoneNumber: params.phoneNumber, program: params.program
                }, function (err) {
               if (err) return next(err);
             });
