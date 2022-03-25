@@ -14,7 +14,7 @@ module.exports = function() {
 		});
 
 	// Load the 'User' model 
-	require('../../react-server/app/models/students.server.model');
+	require('../models/Student');
 
 	// Return the Mongoose connection instance
 	return db;
