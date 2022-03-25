@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
+
 function CreateStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
                 email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: ''});
@@ -30,7 +31,7 @@ function CreateStudent(props) {
   let validatedInput = false;
 
   const ADD_STUDENT = gql`
-  mutation AddStudent(
+    mutation AddStudent(
       $firstName: String!,
       $lastName: String!,
       $email: String!,
@@ -54,7 +55,7 @@ function CreateStudent(props) {
           ) {
           _id
       }
-  }
+    }
 `;
 
 
@@ -98,7 +99,6 @@ function CreateStudent(props) {
     }
 
   }
-
   
   const handleInputPhoneNumber = (e) => {
     let value = e
@@ -129,11 +129,11 @@ function CreateStudent(props) {
     }
   }
 
-  const [addStudent, { data, loading, error }] = useMutation(ADD_STUDENT);
   const handleAddStudent = async (event) =>{ 
     event.preventDefault();
     validatedInput = false;
     handleInputValidation();
+    const [addStudent, { info, loading, error }] = useMutation(ADD_STUDENT);
 
     if(validatedInput){
       setShowLoading(true);

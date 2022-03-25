@@ -1,6 +1,5 @@
-﻿// Load the module dependencies
+// Load the module dependencies
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const saltRounds = 10;
 //Define a schema
 const Schema = mongoose.Schema;
