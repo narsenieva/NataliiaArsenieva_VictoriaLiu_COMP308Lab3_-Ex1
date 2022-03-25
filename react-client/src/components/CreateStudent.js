@@ -6,7 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
-
+import { gql, useMutation } from '@apollo/client';
 function CreateStudent(props) {
   const [student, setStudent] = useState({ _id: '', firstName: '', lastName: '', 
                 email: '',studentNumber: '',password: '', address: '', city: '', phoneNumber: '', program: ''});
@@ -28,6 +28,35 @@ function CreateStudent(props) {
   let validatedEmail = false;
   let validatedPhone = false;
   let validatedInput = false;
+
+  const ADD_STUDENT = gql`
+  mutation AddStudent(
+      $firstName: String!,
+      $lastName: String!,
+      $email: String!,
+      $studentNumber: String!,
+      $password: String!,
+      $address: String!,
+      $city: String!,
+      $phoneNumber: String!,
+      $program: String!
+      ) {
+      addStudent(
+          firstName: $firstName,
+          lastName: $lastName,
+          email: $email,
+          studentNumber: $studentNumber,
+          password: $password,
+          address: $address,
+          city: $city,
+          phoneNumber: $phoneNumber,
+          program: $program 
+          ) {
+          _id
+      }
+  }
+`;
+
 
   const handleInputStudentNumber = (e) => {
     let value = e
@@ -100,7 +129,7 @@ function CreateStudent(props) {
     }
   }
 
-
+  const [addStudent, { data, loading, error }] = useMutation(ADD_STUDENT);
   const handleAddStudent = async (event) =>{ 
     event.preventDefault();
     validatedInput = false;
@@ -112,7 +141,12 @@ function CreateStudent(props) {
 
       const data = { firstName, lastName, email, studentNumber, password,
         address, city, phoneNumber, program };
-
+      addStudent({ variables: { firstName: firstName.value, lastName: lastName.value, 
+        email: email.value, studentNumber: studentNumber.value,
+        password: password.value, address: address.value,
+        city: city.value, phoneNumber: phoneNumber.value,
+        program: program.value
+          } });
       axios.post(apiUrl, data).then((result) => {
         window.alert(`Student inserted successfully`)
         setShowLoading(false);

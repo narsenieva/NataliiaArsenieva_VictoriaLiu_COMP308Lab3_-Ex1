@@ -8,8 +8,7 @@ var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var StudentModel = require('../../react-server/app/models/students.server.model');
-//
-// Create a GraphQL Object Type for Student model
+
 const studentType = new GraphQLObjectType({
     name: 'student',
     fields: function () {
