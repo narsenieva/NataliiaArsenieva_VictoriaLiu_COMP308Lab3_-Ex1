@@ -190,7 +190,6 @@ const studentType = new GraphQLObjectType({
       }
     }
   });
-  
   //
   module.exports = new GraphQLSchema({query: queryType, mutation: mutation});
   
