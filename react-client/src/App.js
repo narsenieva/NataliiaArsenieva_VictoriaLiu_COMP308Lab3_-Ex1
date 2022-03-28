@@ -24,6 +24,9 @@ import ListCourses from './components/ListCourses';
 import StudentList from './components/StudentList';
 import AddStudent from './components/AddStudent';
 import UpdateStudent from './components/UpdateStudent';
+import CourseList from './components/CourseList';
+import AddCourse from './components/AddCourse';
+import UpdateCourse from './components/UpdateCourse';
 import Home from './components/Home';
 import Login from './components/Login';
 //
@@ -55,6 +58,8 @@ function App() {
             <Nav.Link href="/list">List of Students</Nav.Link>
             <Nav.Link href="/studentlist">Student List</Nav.Link>
             <Nav.Link href="/addstudent">Add Student</Nav.Link>
+            <Nav.Link href="/addcourse">Add Course</Nav.Link>
+            <Nav.Link href="/courselist">Course List</Nav.Link>
             <Nav.Link href="/listcourses">Course List</Nav.Link>
             <Nav.Link href="/signout" onClick={deleteCookie}>Log out</Nav.Link>
           </Nav>
@@ -69,6 +74,11 @@ function App() {
           <Route render ={()=> < StudentList />} path="/studentlist" />
           <Route render ={()=> < AddStudent />} path="/addstudent" />
           <Route render ={()=> < UpdateStudent />} path="/edit/:id" />
+
+          <Route render ={()=> < CourseList />} path="/courselist" />
+          <Route render ={()=> < AddCourse />} path="/addcourse" />
+          <Route render ={()=> < UpdateCourse />} path="/editcourse/:id" />
+
           <Route render ={()=> < CreateStudent />} path="/create" />
           <Route render ={()=> < ShowStudent />} path="/show/:id" />
           <Route render ={()=> < ListCourses />} path="/listcourses" />
