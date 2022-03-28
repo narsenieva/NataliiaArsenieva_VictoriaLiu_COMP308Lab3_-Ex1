@@ -23,6 +23,7 @@ import ShowCourse from './components/ShowCourse';
 import ListCourses from './components/ListCourses';
 import StudentList from './components/StudentList';
 import AddStudent from './components/AddStudent';
+import UpdateStudent from './components/UpdateStudent';
 import Home from './components/Home';
 import Login from './components/Login';
 //
@@ -48,7 +49,7 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {/* <Nav.Link href="/home">Home</Nav.Link> */}
+            <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/create">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/list">List of Students</Nav.Link>
@@ -64,9 +65,10 @@ function App() {
           <Route render ={()=> < Home />} path="/home" />
           <Route render ={()=> < Login />} path="/login" />
           <Route render ={()=> < List />} path="/list" />
-          <Route render ={()=> < EditStudent />} path="/edit/:id" />
+          {/* <Route render ={()=> < EditStudent />} path="/edit/:id" /> */}
           <Route render ={()=> < StudentList />} path="/studentlist" />
           <Route render ={()=> < AddStudent />} path="/addstudent" />
+          <Route render ={()=> < UpdateStudent />} path="/edit/:id" />
           <Route render ={()=> < CreateStudent />} path="/create" />
           <Route render ={()=> < ShowStudent />} path="/show/:id" />
           <Route render ={()=> < ListCourses />} path="/listcourses" />
