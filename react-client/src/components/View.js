@@ -1,5 +1,4 @@
-import CreateCourse from './CreateCourse';
-import ListCourses from './ListCourses';
+
 import React, { useState } from 'react';
 import AddCourse from './AddCourse';
 //

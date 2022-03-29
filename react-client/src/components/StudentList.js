@@ -1,4 +1,4 @@
-import UpdateStudent from './UpdateStudent';
+
 import React from 'react';
 import { Router, Route } from 'react-router';
 import {gql, useQuery, useMutation} from "@apollo/client";
