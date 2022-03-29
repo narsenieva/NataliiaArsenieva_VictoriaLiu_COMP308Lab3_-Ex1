@@ -53,14 +53,14 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/create">Sign Up</Nav.Link>
+            {/* <Nav.Link href="/create">Sign Up</Nav.Link> */}
+            <Nav.Link href="/addstudent">Sign Up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/list">List of Students</Nav.Link>
+            {/* <Nav.Link href="/list">List of Students</Nav.Link> */}
             <Nav.Link href="/studentlist">Student List</Nav.Link>
-            <Nav.Link href="/addstudent">Add Student</Nav.Link>
             <Nav.Link href="/addcourse">Add Course</Nav.Link>
             <Nav.Link href="/courselist">Course List</Nav.Link>
-            <Nav.Link href="/listcourses">Course List</Nav.Link>
+            {/* <Nav.Link href="/listcourses">Course List</Nav.Link> */}
             <Nav.Link href="/signout" onClick={deleteCookie}>Log out</Nav.Link>
           </Nav>
         </Navbar.Collapse>

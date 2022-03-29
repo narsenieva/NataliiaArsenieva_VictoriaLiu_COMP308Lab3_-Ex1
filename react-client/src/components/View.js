@@ -1,6 +1,7 @@
 import CreateCourse from './CreateCourse';
 import ListCourses from './ListCourses';
 import React, { useState } from 'react';
+import AddCourse from './AddCourse';
 //
 import axios from 'axios';
 //
@@ -13,7 +14,7 @@ function View (props) {
   const [course, setCourse] = useState('');
 
  
-  
+
 
   //
   const createCourse = () => {
@@ -39,13 +40,13 @@ function View (props) {
             <button onClick={createCourse}>Add Course</button>    
           </div>            
         : 
-          <CreateCourse screen={screen} setScreen={setScreen} />
+          <AddCourse screen={screen} setScreen={setScreen} />
       }
 
 
       <h4>Created by:</h4>
       <h5>Nataliia Arsenieva (301043237) and Victoria Liu (301028404)</h5>
-      <h5>COMP308 Lab02 Ex1</h5>
+      <h5>COMP308 Lab03 Ex1</h5>
 
 
 
