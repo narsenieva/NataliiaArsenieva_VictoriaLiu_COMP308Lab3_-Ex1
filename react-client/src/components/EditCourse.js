@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 function EditCourse(props) {
   console.log('edituser props:',props.match.params)
   //const [course, setCourse] = useState({ _id: '', courseCode: '', courseName: '', section: '', semester: '' });  
-  
+  const [id, setId] = useState('');
   const [courseCode, setCourseCode] = useState('');
   const [courseName, setCourseName] = useState('');
   const [section, setSection] = useState('');
@@ -29,6 +29,7 @@ function EditCourse(props) {
       //setCourse(result.data);
       console.log(result.data);
       setShowLoading(false);
+      setId(result.data._id);
       setCourseCode(result.data.courseCode);
       setCourseName(result.data.courseName);
       setSection(result.data.section);
@@ -79,7 +80,7 @@ function EditCourse(props) {
         setSemester('');
         setShowLoading(false);
         console.log('after calling put to update',result.data )
-        props.history.push('/showcourse/' + result.data._id)
+        props.history.push('/showcourse/' + id)
       }).catch((error) => setShowLoading(false));
     } 
     else {
