@@ -1,6 +1,8 @@
 import UpdateStudent from './UpdateStudent';
 import React from 'react';
+import { Router, Route } from 'react-router';
 import {gql, useQuery, useMutation} from "@apollo/client";
+import { useHistory } from 'react-router-dom'
 
 
 const GET_STUDENTS = gql`
@@ -30,16 +32,18 @@ mutation DeleteStudent(
     }
 `;
 //
+
+
+
+
+
+
 const StudentList = (props) => {
     
     const { screen, setScreen } = props;
     const { loading, error, data , refetch } = useQuery(GET_STUDENTS);
     const [deletestudent] = useMutation(DELETE_STUDENT);
-    const editUser = (id) => {
-        props.history.push({
-          pathname: '/edit/' + id
-        });
-      };
+    const { push } = useHistory();
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     //const [deleteStudent] = useMutation(DELETE_STUDENT);
@@ -75,11 +79,9 @@ const StudentList = (props) => {
                         
                         <td>
                             <button onClick={() => { 
-                                editUser(student._id)
+                                push('/edit/'+student._id)
                                 }}>edit</button>
                         </td>
-
-
                     </tr>
                 ))}
             </table>

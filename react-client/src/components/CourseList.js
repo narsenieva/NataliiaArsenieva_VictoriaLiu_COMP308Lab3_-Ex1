@@ -1,7 +1,7 @@
 //import UpdateCourse from './UpdateCourse';
 import React from 'react';
 import {gql, useQuery, useMutation} from "@apollo/client";
-
+import { useHistory } from 'react-router-dom'
 
 const GET_COURSES = gql`
 {
@@ -32,11 +32,7 @@ const CourseList = (props) => {
     const { screen, setScreen } = props;
     const { loading, error, data , refetch } = useQuery(GET_COURSES);
     const [deletecourse] = useMutation(DELETE_COURSE);
-    const editUser = (id) => {
-        props.history.push({
-          pathname: '/edit/' + id
-        });
-      };
+    const { push } = useHistory();
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     //const [deleteCourse] = useMutation(DELETE_COURSE);
@@ -68,11 +64,10 @@ const CourseList = (props) => {
                         
                         <td>
                             <button onClick={() => { 
-                                editUser(course._id)
+                                push('/editcourse/'+course._id)
                                 }}>edit</button>
                         </td>
-
-
+                        
                     </tr>
                 ))}
             </table>

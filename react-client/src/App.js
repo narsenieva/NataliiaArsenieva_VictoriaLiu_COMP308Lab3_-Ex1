@@ -70,14 +70,14 @@ function App() {
           <Route render ={()=> < Home />} path="/home" />
           <Route render ={()=> < Login />} path="/login" />
           <Route render ={()=> < List />} path="/list" />
-          {/* <Route render ={()=> < EditStudent />} path="/edit/:id" /> */}
+          <Route render ={()=> < EditStudent />} path="/edit/:id" />
           <Route render ={()=> < StudentList />} path="/studentlist" />
           <Route render ={()=> < AddStudent />} path="/addstudent" />
-          <Route render ={()=> < UpdateStudent />} path="/edit/:id" />
+          <Route render ={()=> < UpdateStudent />} path="/updatestudent/:id" />
 
           <Route render ={()=> < CourseList />} path="/courselist" />
           <Route render ={()=> < AddCourse />} path="/addcourse" />
-          <Route render ={()=> < UpdateCourse />} path="/editcourse/:id" />
+          <Route render ={()=> < UpdateCourse />} path="/updatecourse/:id" />
 
           <Route render ={()=> < CreateStudent />} path="/create" />
           <Route render ={()=> < ShowStudent />} path="/show/:id" />

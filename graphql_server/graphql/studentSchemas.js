@@ -9,6 +9,11 @@ var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var StudentModel = require('../models/Student');
 
+/**
+ * if your making changes go to the schemas.js file instead
+ */
+
+
 const studentType = new GraphQLObjectType({
     name: 'student',
     fields: function () {

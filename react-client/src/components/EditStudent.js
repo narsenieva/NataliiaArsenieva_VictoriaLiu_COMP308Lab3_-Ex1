@@ -150,6 +150,8 @@ function EditStudent(props) {
             setFirstName('');
             setLastName('');
             setEmail('');
+            setStudentNumber('');
+            setPassword('');
             setAddress('');
             setCity('');
             setPhoneNumber('');
@@ -189,6 +191,10 @@ function EditStudent(props) {
           <Form.Group>
             <Form.Label>Student Name</Form.Label>
             <Form.Control type="text" name="studentNumber" id="studentNumber" placeholder="Enter student number" value={studentNumber} onChange={e => setStudentNumber(e.target.value)} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="text" name="password" id="password" placeholder="Enter password " value={password} onChange={e => setPassword(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Address</Form.Label>
